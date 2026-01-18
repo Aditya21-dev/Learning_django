@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .kfc-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .kfc-modal {
+            background: #f7f5f2;
+            width: 420px;
+            padding: 40px 35px;
+            border-radius: 14px;
+            position: relative;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* close */
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 18px;
+            border: none;
+            background: none;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        /* headings */
+        .kfc-logo {
+            font-weight: 900;
+            margin: 0;
+        }
+
+        .kfc-rewards {
+            margin-top: -5px;
+            font-weight: 800;
+        }
+
+        .modal-title {
+            margin: 25px 0 10px;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        /* form */
+        form {
+            text-align: left;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #000;
+            background: transparent;
+            padding: 8px 0;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .terms {
+            font-size: 12px;
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .continue-btn {
+            width: 100%;
+            background: #ddd;
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: not-allowed;
+        }
+
+        .guest-link {
+            display: block;
+            margin-top: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="kfc-modal-overlay">
+        <div class="kfc-modal">
+
+            <!-- Close -->
+            <button class="close-btn">&times;</button>
+
+            <!-- Logo -->
+            <h2 class="kfc-logo">KFC</h2>
+            <h3 class="kfc-rewards">REWARDS</h3>
+
+            <!-- Title -->
+            <h1 class="modal-title">LOG IN OR SIGN UP</h1>
+
+            <!-- Subtitle -->
+            <p class="modal-subtitle">
+                We've gone password-free! Logging in is now easier and more secure.
+            </p>
+
+            <!-- Form -->
+            <form>
+                <label>Email</label>
+                <input type="email" placeholder="" required>
+
+                <p class="terms">
+                    By signing into the application or proceeding as a guest, you agree
+                    to our <strong>Privacy Center</strong>, and
+                    <strong>KFC Rewards Terms & Conditions</strong>.
+                </p>
+
+                <button type="submit" class="continue-btn" disabled>
+                    Continue
+                </button>
+            </form>
+
+            <a href="#" class="guest-link">Continue as Guest</a>
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===== HEADER ===== */
+.top-header {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stripes {
+    width: 30px;
+    height: 20px;
+    background: repeating-linear-gradient(
+        to right,
+        #e4002b,
+        #e4002b 6px,
+        transparent 6px,
+        transparent 12px
+    );
+}
+
+.nav-links a {
+    position: relative;
+    margin: 0 12px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+    padding-bottom: 5px;
+}
+
+/* underline (hidden by default) */
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 3px;
+    background-color: #e4002b;
+    transition: width 0.3s ease-in-out;
+}
+
+/* on hover */
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.order-btn {
+    background: #e4002b;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ===== ORDER BAR ===== */
+.order-bar {
+    background: #222;
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.order-toggle button {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.user-icon:hover {
+  background: #ff0000;
+  color: #fff;
+}
+
+.order-toggle .active {
+    background: #e4002b;
+    border: none;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: #232427;
+    color: #ccc;
+    padding: 50px 20px 20px;
+}
+
+.footer-top {
+    max-width: 1200px;
+    margin: auto;
+    font-size: 14px;
+}
+
+.calorie-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    justify-items: center;
+    max-width: 1200px;
+    margin: 90px auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 30px;
+}
+
+.footer-links h3 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    display: block;
+    text-decoration: none;
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    text-align: center;
+    padding-top: 15px;
+    font-size: 13px;
+}

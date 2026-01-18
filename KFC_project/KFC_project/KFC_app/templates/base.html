@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}KFC Clone{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    {% block css %}
+
+    {% endblock css %}
+</head>
+
+<body>
+
+    {% comment %} NAV-BAAR {% endcomment %}
+    <header class="top-header">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="stripes"></span>
+                <h2>Kentucky Fried Chicken</h2>
+            </div>
+
+            <nav class="nav-links">
+                <a href="{% url 'menu' %}">Menu</a>
+                <a href="{% url 'reward' %}">Rewards</a>
+                <a href="{% url 'careers' %}">Careers</a>
+                <a href="#">Gift Cards</a>
+                <a href="#">Find a KFC</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="{% url 'login' %}" class="user-icon" style="color: black;">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+
+                <button class="order-btn">Start Order</button>
+            </div>
+        </div>
+    </header>
+
+
+    <section class="order-bar">
+        <p>Select a store to start your order.</p>
+        <div class="order-toggle">
+            <button class="active">Pickup</button>
+            <button>Delivery</button>
+        </div>
+    </section>
+
+
+    <main>
+        {% block content %}
+
+        {% endblock content %}
+    </main>
+
+
+    {% comment %} FOOTER {% endcomment %}
+    <footer class="footer">
+        <div class="footer-top">
+            <p class="calorie-title">Calorie Statement</p>
+            <p class="calorie-text">
+                2,000 calories a day is used for general nutrition advice, but calorie needs vary. Additional nutrition
+                information available upon request in-store and on kfc.com. Prices, participation, and product
+                availability may vary. For allergen information, visit our Special Diets page. We prepare and serve
+                products containing egg, milk, soy, wheat or other allergens. Our products are prepared on shared
+                equipment and in the same kitchen area and we cannot guarantee that cross contact with allergens will
+                not occur.
+                <br><br><br>
+
+                Pepsi, Pepsi Globe, Mtn Dew, Mtn Dew Sweet Lightning, Starry are registered trademarks of PepsiCo, Inc.
+                <br>
+                Dr Pepper is a registered trademark of Dr Pepper/Seven Up, Inc.
+
+                <br><br><br>
+                CAPRI-SUN® and the Pouch Shape™ are licensed trademarks of the Capri Sun Group
+            </p>
+        </div>
+
+        <div class="footer-links">
+            <div>
+                <img src="{% static 'img/Screenshot 2026-01-18 160123.png' %}" alt="">
+            </div>
+
+            <div>
+                <h3>KFC Food</h3>
+                <a href="#">Menu</a>
+                <a href="#">Nutrition Guide</a>
+                <a href="#">Allergens</a>
+            </div>
+
+            <div>
+                <h3>Company</h3>
+                <a href="#">About KFC</a>
+                <a href="#">Foundation</a>
+                <a href="#">Franchise</a>
+            </div>
+
+            <div>
+                <h3>Careers</h3>
+                <a href="#">Restaurant Careers</a>
+                <a href="#">Corporate Careers</a>
+            </div>
+
+            <div>
+                <h3>Resources</h3>
+                <a href="#">FAQs</a>
+                <a href="#">Contact Us</a>
+            </div>
+
+            <div>
+                <h3>Social</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">X</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 KFC Corporation. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

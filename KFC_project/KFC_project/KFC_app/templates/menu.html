@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} KFC_Menu.html {% endblock title %}
+
+{% block css %}
+    <style>
+    .menu-page {
+        max-width: 1200px;
+        margin: 40px auto;
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 40px;
+    }
+
+    /* LEFT MENU */
+    .menu-sidebar {
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+    }
+
+    .menu-sidebar h3 {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    .menu-sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .menu-sidebar li {
+        padding: 12px 0;
+        font-weight: 500;
+        color: #555;
+        cursor: pointer;
+    }
+
+    .menu-sidebar li.active {
+        font-weight: 700;
+        color: #000;
+    }
+
+    /* RIGHT CONTENT */
+    .menu-content h2 {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 30px;
+    }
+
+    /* OFFER GRID */
+    .offer-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .offer-card {
+        background: #faf9f7;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .offer-img {
+        height: 160px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .offer-img.red {
+        background: #e4002b;
+    }
+
+    .offer-card h4 {
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+    .offer-card p {
+        font-size: 14px;
+        margin: 10px 0;
+    }
+
+    .offer-card a {
+        display: inline-block;
+        margin-bottom: 15px;
+        color: #000;
+        font-weight: 600;
+    }
+
+    .offer-card button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 25px;
+        border: none;
+        background: #000;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+    }
+</style>
+{% endblock css %}
+
+
+{% block content %}
+
+<section class="menu-page">
+    <!-- LEFT STICKY MENU -->
+    <aside class="menu-sidebar">
+        <h3>KFC MENU</h3>
+        <ul>
+            <li class="active">EPIC BUCKET OF THE DAY</li>
+            <li>GOLD EDITION</li>
+            <li>BOX MEALS</li>
+            <li>VARIETY BUCKETS</li>
+            <li>VEG</li>
+            <li>CHICKEN BUCKETS</li>
+            <li>BURGERS</li>
+            <li>SNACKS</li>
+            <li>RICE BOWLZ</li>
+            <li>BEVERAGE & DESSERTS</li>
+        </ul>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <main class="menu-content">
+        <h2>SAVE MORE AS YOU ORDER</h2>
+
+        <div class="offer-grid">
+            <!-- CARD 1 -->
+            <div class="offer-card">
+                <div class="offer-img red"></div>
+                <h4>FREE CLASSIC ZINGER</h4>
+                <p>Min. Order Value 499</p>
+                <a href="#">View Details</a>
+                <button>Apply Offer</button>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="offer-card">
+                <div class="offer-img red"></div>
+                <h4>2 PC HOT CRISPY @ RS 99</h4>
+                <p>Min. Order Value 499</p>
+                <a href="#">View Details</a>
+                <button>Apply Offer</button>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="offer-card">
+                <div class="offer-img red"=></div>
+                <h4>UPTO RS 100 OFF</h4>
+                <p>Min. Order Value 699</p>
+                <a href="#">View Details</a>
+                <button>Apply Offer</button>
+            </div>
+        </div>
+    </main>
+</section>
+
+
+{% endblock content %}

@@ -1,0 +1,407 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} KFC_Home.html {% endblock title %}
+
+{% block css %}
+<style>
+    .promo-card {
+        height: 320px;
+        border-radius: 18px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .promo-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+    }
+
+    .promo-card.light::before {
+        background: rgba(255, 255, 255, 0.23);
+    }
+
+    .promo-text {
+        position: relative;
+        color: #fff;
+        padding: 24px;
+        max-width: 80%;
+    }
+
+    .promo-text h3 {
+        font-weight: 700;
+    }
+
+    .promo-text a {
+        display: inline-block;
+        margin-bottom: 10px;
+        color: #fff;
+        text-decoration: underline;
+    }
+
+    .carousel-control-prev {
+        left: -60px;
+        filter: brightness(0.5);
+        /* 👈 left side bahar */
+    }
+
+    .carousel-control-next {
+        right: -60px;
+        filter: brightness(0.5);
+        /* 👉 right side bahar */
+    }
+
+    .promo-text button {
+        background: #e4002b;
+        border: none;
+        padding: 10px 18px;
+        color: #fff;
+        border-radius: 25px;
+        font-weight: 600;
+    }
+
+    /* controls inside, not disturbing layout */
+    .custom-control {
+        width: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+
+    .menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-grid {
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 30px;
+        text-align: center;
+    }
+
+    .menu-item img {
+        width: 100px;
+        height: 100px
+    }
+
+    .menu-item p {
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    /* ===== THE LATEST ===== */
+    .latest-section container my-5 {
+        width: 100%
+    }
+
+    .latest-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .latest-header h2 {
+        font-size: 28px;
+        font-weight: 800;
+    }
+
+    .latest-header a {
+        text-decoration: none;
+        font-weight: 600;
+        color: #000;
+    }
+
+    .latest-slider {
+        display: flex;
+        gap: 25px;
+        overflow-x: auto;
+        padding-bottom: 20px;
+        scroll-snap-type: x mandatory;
+    }
+
+    .latest-slider::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .latest-slider::-webkit-scrollbar-thumb {
+        background: #000;
+        border-radius: 10px;
+    }
+
+    .latest-card {
+        min-width: 260px;
+        background: #fafafa;
+        border-radius: 14px;
+        padding: 20px;
+        scroll-snap-align: start;
+        position: relative;
+    }
+
+    .latest-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: contain;
+    }
+
+    .latest-card h4 {
+        margin-top: 15px;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .latest-card p {
+        font-size: 13px;
+        color: #555;
+    }
+
+    /* badge */
+    .latest-card .badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #fff;
+        color: #000;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 6px;
+    }
+</style>
+
+{% endblock css %}
+
+
+{% block content %}
+
+<section class="promo-slider container my-5">
+
+    <div id="kfcCarousel" class="carousel slide" data-bs-ride="carousel">
+
+        <div class="carousel-inner">
+
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <div class="promo-card dark" style="background-image: url('{% static 'img/slide (1).jpg' %}');">
+                            <div class="promo-text">
+                                <h3>SUNDAYS BY KFC: $5 OFF</h3>
+                                <p>Treat yourself to $5 off a 6 pc. Taste of KFC deal.</p>
+                                <a href="#">Terms Apply</a>
+                                <button>Select my KFC</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="promo-card light"
+                            style="background-image: url('{% static 'img/slide (1).webp' %}');">
+                            <div class="promo-text">
+                                <h3 style="color: #282828;">MATTY’S CHEESY NUGGY GRAVY BOWL</h3>
+                                <p style="color: #282828;">Chef Matty Matheson’s ultimate comfort creation.</p>
+                                <a href="#" style="color: #282828;">Terms Apply</a>
+                                <button>Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <div class="promo-card dark"
+                            style="background-image: url('{% static 'img/slide (2).jpeg' %}');">
+                            <div class="promo-text">
+                                <h3>SUNDAYS BY KFC: $5 OFF</h3>
+                                <p>Treat yourself to $5 off a 6 pc. Taste of KFC deal.</p>
+                                <a href="#">Terms Apply</a>
+                                <button>Select my KFC</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="promo-card light"
+                            style="background-image: url('{% static 'img/slide_last.jpg' %}');">
+                            <div class="promo-text">
+                                <h3>MATTY’S CHEESY NUGGY GRAVY BOWL</h3>
+                                <p>Chef Matty Matheson’s ultimate comfort creation.</p>
+                                <a href="#">Terms Apply</a>
+                                <button>Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <div class="promo-card dark"
+                            style="background-image: url('{% static 'img/slide (2).jpeg' %}');">
+                            <div class="promo-text">
+                                <h3>SUNDAYS BY KFC: $5 OFF</h3>
+                                <p>Treat yourself to $5 off a 6 pc. Taste of KFC deal.</p>
+                                <a href="#">Terms Apply</a>
+                                <button>Select my KFC</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="promo-card light"
+                            style="background-image: url('{% static 'img/slide (1).jpg' %}');">
+                            <div class="promo-text">
+                                <h3>MATTY’S CHEESY NUGGY GRAVY BOWL</h3>
+                                <p>Chef Matty Matheson’s ultimate comfort creation.</p>
+                                <a href="#">Terms Apply</a>
+                                <button>Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Controls (clean & centered) -->
+        <button class="carousel-control-prev custom-control" type="button" data-bs-target="#kfcCarousel"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <button class="carousel-control-next custom-control" type="button" data-bs-target="#kfcCarousel"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+
+    </div>
+</section>
+
+
+<!-- ===== MENU SECTION ===== -->
+<section class="menu-section container my-5">
+    <div class="menu-header">
+        <h2 style="font-weight: 00;">MENU</h2>
+        <a href="#">Full Menu →</a>
+    </div>
+
+    <div class="menu-grid">
+        <div class="menu-item">
+            <img src="{% static 'img/menue (6).png' %}">
+            <p>DEALS</p>
+        </div>
+        <div class="menu-item">
+            <img src="{% static 'img/menue (5).png' %}">
+            <p>THE LATEST</p>
+        </div>
+        <div class="menu-item">
+            <img src="{% static 'img/menue (4).png' %}">
+            <p>FAMILY MEALS</p>
+        </div>
+        <div class="menu-item">
+            <img src="{% static 'img/menue (3).png' %}">
+            <p>COMBOS</p>
+        </div>
+        <div class="menu-item">
+            <img src="{% static 'img/menue (2).png' %}">
+            <p>FRIED CHICKEN</p>
+        </div>
+        <div class="menu-item">
+            <img src="{% static 'img/menue (1).png' %}">
+            <p>TENDERS</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== THE LATEST SECTION ===== -->
+<section class="latest-section container my-5">
+
+    <div class="latest-header">
+        <h2>THE LATEST</h2>
+        <a href="#">See All →</a>
+    </div>
+
+    <div class="latest-slider">
+
+        <!-- ITEM -->
+        <div class="latest-card">
+            <img src="{% static 'img/latest (6).png' %}">
+            <h4>Cheese Curds</h4>
+            <p>Set location for pricing.</p>
+        </div>
+
+        <div class="latest-card">
+            <span class="badge">DIGITAL EXCLUSIVE</span>
+            <img src="{% static 'img/latest (1).png' %}">
+            <h4>Snack Box: Nuggets & Cheese Curds</h4>
+            <p>Set location for pricing.</p>
+        </div>
+
+        <div class="latest-card">
+            <img src="{% static 'img/latest (2).png' %}">
+            <h4>Spicy Famous Bowl</h4>
+            <p>Set location for pricing.</p>
+        </div>
+
+        <div class="latest-card">
+            <img src="{% static 'img/latest (3).png' %}">
+            <h4>Spicy Mac & Cheese Bowl</h4>
+            <p>Set location for pricing.</p>
+        </div>
+
+        <div class="latest-card">
+            <img src="{% static 'img/latest (4).png' %}">
+            <h4>Spicy Mac & Cheese Bowl Combo</h4>
+            <p>Set location for pricing.</p>
+        </div>
+
+        <div class="latest-card">
+            <img src="{% static 'img/latest (5).png' %}">
+            <h4>Spicy Mac & Cheese Bowl Combo</h4>
+            <p>Set location for pricing.</p>
+        </div>
+
+        <div class="latest-card">
+            <img src="{% static 'img/latest (6).png' %}">
+            <h4>Spicy Mac & Cheese Bowl Combo</h4>
+            <p>Set location for pricing.</p>
+        </div>
+
+        <div class="latest-card">
+            <img src="{% static 'img/latest (7).png' %}">
+            <h4>Spicy Mac & Cheese Bowl Combo</h4>
+            <p>Set location for pricing.</p>
+        </div>
+
+        <div class="latest-card">
+            <img src="{% static 'img/latest (8).png' %}">
+            <h4>Spicy Mac & Cheese Bowl Combo</h4>
+            <p>Set location for pricing.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock content %}
