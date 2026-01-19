@@ -24,5 +24,7 @@ urlpatterns = [
     path('menu/',views.menu,name="menu"),
     path('reward/',views.reward,name="reward"),
     path('careers/',views.careers,name="careers"),
-    path('login/',views.login,name="login")
+    path('registration/',views.registration,name="registration"),
+    path('login/',views.login,name="login"),
+    path('formdata/',views.formdata,name="formdata")
 ]

@@ -4,19 +4,24 @@
 {% block title %} KFC_Menu.html {% endblock title %}
 
 {% block css %}
-    <style>
-    .menu-page {
+<style>
+    main {
+        padding-top: 10px;
+    }
+
+    .menu-wrapper {
         max-width: 1200px;
         margin: 40px auto;
         display: grid;
         grid-template-columns: 260px 1fr;
         gap: 40px;
+        
     }
 
     /* LEFT MENU */
     .menu-sidebar {
         position: sticky;
-        top: 100px;
+        top: 110px;
         height: fit-content;
     }
 
@@ -26,14 +31,8 @@
         margin-bottom: 20px;
     }
 
-    .menu-sidebar ul {
-        list-style: none;
-        padding: 0;
-    }
-
     .menu-sidebar li {
         padding: 12px 0;
-        font-weight: 500;
         color: #555;
         cursor: pointer;
     }
@@ -50,56 +49,146 @@
         margin-bottom: 30px;
     }
 
-    /* OFFER GRID */
+    /* OFFERS */
     .offer-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 25px;
+        margin-bottom: 60px;
     }
 
+    /* ===== OFFERS CARDS ===== */
     .offer-card {
-        background: #faf9f7;
+        border: 1px solid #e5e5e5;
         border-radius: 12px;
-        padding: 20px;
+        padding: 18px;
+        background: #fff;
         text-align: center;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     }
 
     .offer-img {
-        height: 160px;
+        height: 120px;
         border-radius: 10px;
-        margin-bottom: 20px;
-    }
-
-    .offer-img.red {
+        margin-bottom: 15px;
         background: #e4002b;
     }
 
+    .offer-img {
+        height: 120px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+
     .offer-card h4 {
         font-size: 16px;
-        font-weight: 800;
+        font-weight: 700;
+        margin-bottom: 6px;
     }
 
     .offer-card p {
         font-size: 14px;
-        margin: 10px 0;
+        color: #555;
     }
 
     .offer-card a {
-        display: inline-block;
-        margin-bottom: 15px;
-        color: #000;
-        font-weight: 600;
+        display: block;
+        margin: 8px 0;
+        font-size: 14px;
+        color: #e4002b;
+        text-decoration: none;
     }
 
     .offer-card button {
-        width: 100%;
+        padding: 8px 16px;
+        border-radius: 20px;
+        border: none;
+        background: #000;
+        color: #fff;
+        cursor: pointer;
+    }
+
+
+    /* ===== BUCKET SECTION ===== */
+    .buckets {
+        margin-top: 40px;
+    }
+
+    .section-title {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 30px;
+    }
+
+    /* GRID */
+    .bucket-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    /* CARD */
+    .bucket-card {
+        border: 1px solid #eee;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fff;
+    }
+
+    /* IMAGE */
+    .bucket-img {
+        height: 220px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    /* SAVE TAG */
+    .save-tag {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: #e4002b;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 6px 10px;
+        border-radius: 6px;
+    }
+
+    /* TEXT */
+    .bucket-card h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 14px;
+    }
+
+    .meta {
+        font-size: 13px;
+        color: #777;
+        margin: 0 14px;
+    }
+
+    .desc {
+        font-size: 14px;
+        color: #444;
+        margin: 8px 14px 16px;
+    }
+
+    /* BUTTON */
+    .cart-btn {
+        width: calc(100% - 28px);
+        margin: 0 14px 16px;
         padding: 12px;
         border-radius: 25px;
         border: none;
         background: #000;
         color: #fff;
-        font-weight: 700;
+        font-weight: 600;
         cursor: pointer;
     }
 </style>
@@ -108,7 +197,8 @@
 
 {% block content %}
 
-<section class="menu-page">
+<section class="menu-wrapper">
+
     <!-- LEFT STICKY MENU -->
     <aside class="menu-sidebar">
         <h3>KFC MENU</h3>
@@ -126,40 +216,239 @@
         </ul>
     </aside>
 
-    <!-- RIGHT CONTENT -->
-    <main class="menu-content">
-        <h2>SAVE MORE AS YOU ORDER</h2>
+    <!-- RIGHT SCROLL CONTENT -->
+    <div class="menu-content">
 
-        <div class="offer-grid">
-            <!-- CARD 1 -->
-            <div class="offer-card">
-                <div class="offer-img red"></div>
-                <h4>FREE CLASSIC ZINGER</h4>
-                <p>Min. Order Value 499</p>
-                <a href="#">View Details</a>
-                <button>Apply Offer</button>
-            </div>
+        <!-- OFFERS -->
+        <section class="offers">
+            <h2>SAVE MORE AS YOU ORDER</h2>
 
-            <!-- CARD 2 -->
-            <div class="offer-card">
-                <div class="offer-img red"></div>
-                <h4>2 PC HOT CRISPY @ RS 99</h4>
-                <p>Min. Order Value 499</p>
-                <a href="#">View Details</a>
-                <button>Apply Offer</button>
-            </div>
+            <div class="offer-grid">
+                <div class="offer-card">
+                    <div class="offer-img" style="background-image: url('{% static "img/CHKZINGER.jpg" %}');">
+                    </div>
 
-            <!-- CARD 3 -->
-            <div class="offer-card">
-                <div class="offer-img red"=></div>
-                <h4>UPTO RS 100 OFF</h4>
-                <p>Min. Order Value 699</p>
-                <a href="#">View Details</a>
-                <button>Apply Offer</button>
+                    <h4>FREE CLASSIC ZINGER</h4>
+                    <p>Min. Order Value 499</p>
+                    <a href="#">View Details</a>
+                    <button>Apply Offer</button>
+                </div>
+
+
+                <div class="offer-card">
+                    <div class="offer-img" style="background-image: url('{% static "img/ADDCHK99.jpg" %}');">
+                    </div>
+
+                    <h4>FREE CLASSIC ZINGER</h4>
+                    <p>Min. Order Value 499</p>
+                    <a href="#">View Details</a>
+                    <button>Apply Offer</button>
+                </div>
+
+
+                <div class="offer-card">
+                    <div class="offer-img" style="background-image: url('{% static "img/BIGSAVE.jpg" %}');">
+                    </div>
+
+                    <h4>FREE CLASSIC ZINGER</h4>
+                    <p>Min. Order Value 499</p>
+                    <a href="#">View Details</a>
+                    <button>Apply Offer</button>
+                </div>
+
             </div>
-        </div>
-    </main>
+        </section>
+
+        <!-- VARIETY BUCKETS -->
+        <section class="buckets">
+            <h2 class="section-title">VARIETY BUCKETS</h2>
+
+            <div class="bucket-grid">
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/latest (5).png" %}');">
+                        <span class="save-tag">SAVE 35%</span>
+                    </div>
+                    <h3>Ultimate Savings Bucket</h3>
+                    <p class="meta">Non veg • Serves 2–3</p>
+                    <p class="desc">Hot Crispy, Wings, Strips, Dips Pepsi</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/images.jpeg" %}');">
+                    </div>
+                    <h3>All in One Bucket</h3>
+                    <p class="meta">Non veg</p>
+                    <p class="desc">Leg, Wings, Strips, Dips & Pepsi</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/menu (3).png" %}');">
+                        <span class="save-tag">SAVE 18%</span>
+                    </div>
+                    <h3>Bucket for Two</h3>
+                    <p class="meta">Non veg • Serves 2–3</p>
+                    <p class="desc">Hot & Crispy + Smoky Red Chicken</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/menu (4).png" %}');">
+                        <span class="save-tag">SAVE 18%</span>
+                    </div>
+                    <h3>Bucket for Two</h3>
+                    <p class="meta">Non veg • Serves 2–3</p>
+                    <p class="desc">Hot & Crispy + Smoky Red Chicken</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/menu (5).png" %}');">
+                        <span class="save-tag">SAVE 18%</span>
+                    </div>
+                    <h3>Bucket for Two</h3>
+                    <p class="meta">Non veg • Serves 2–3</p>
+                    <p class="desc">Hot & Crispy + Smoky Red Chicken</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/latest (5).png" %}');">
+                        <span class="save-tag">SAVE 18%</span>
+                    </div>
+                    <h3>Bucket for Two</h3>
+                    <p class="meta">Non veg • Serves 2–3</p>
+                    <p class="desc">Hot & Crispy + Smoky Red Chicken</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- VARIETY BUCKETS -->
+        <section class="buckets">
+            <h2 class="section-title"> BURGERS </h2>
+
+            <div class="bucket-grid">
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/menu (6).png" %}');">
+                        <span class="save-tag">SAVE 35%</span>
+                    </div>
+                    <h3>Ultimate Savings Bucket</h3>
+                    <p class="meta">Non veg • Serves 2–3</p>
+                    <p class="desc">Hot Crispy, Wings, Strips, Dips Pepsi</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/menu (9).png" %}');">
+                    </div>
+                    <h3>All in One Bucket</h3>
+                    <p class="meta">Non veg</p>
+                    <p class="desc">Leg, Wings, Strips, Dips & Pepsi</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/menu (7).png" %}');">
+                        <span class="save-tag">SAVE 18%</span>
+                    </div>
+                    <h3>Bucket for Two</h3>
+                    <p class="meta">Non veg • Serves 2–3</p>
+                    <p class="desc">Hot & Crispy + Smoky Red Chicken</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/menu (8).png" %}');">
+                    </div>
+                    <h3>All in One Bucket</h3>
+                    <p class="meta">Non veg</p>
+                    <p class="desc">Leg, Wings, Strips, Dips & Pepsi</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/menu (6).png" %}');">
+                        <span class="save-tag">SAVE 18%</span>
+                    </div>
+                    <h3>Bucket for Two</h3>
+                    <p class="meta">Non veg • Serves 2–3</p>
+                    <p class="desc">Hot & Crispy + Smoky Red Chicken</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- VARIETY BUCKETS -->
+        <section class="buckets">
+            <h2 class="section-title">SNACKS</h2>
+
+            <div class="bucket-grid">
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/latest (1).png" %}');">
+                        <span class="save-tag">SAVE 35%</span>
+                    </div>
+                    <h3>Ultimate Savings Bucket</h3>
+                    <p class="meta">Non veg • Serves 2–3</p>
+                    <p class="desc">Hot Crispy, Wings, Strips, Dips Pepsi</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/latest (4).png" %}');">
+                    </div>
+                    <h3>All in One Bucket</h3>
+                    <p class="meta">Non veg</p>
+                    <p class="desc">Leg, Wings, Strips, Dips & Pepsi</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/latest (3).png" %}');">
+                        <span class="save-tag">SAVE 18%</span>
+                    </div>
+                    <h3>Bucket for Two</h3>
+                    <p class="meta">Non veg • Serves 2–3</p>
+                    <p class="desc">Hot & Crispy + Smoky Red Chicken</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/menu (1).png" %}');">
+                    </div>
+                    <h3>All in One Bucket</h3>
+                    <p class="meta">Non veg</p>
+                    <p class="desc">Leg, Wings, Strips, Dips & Pepsi</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/menue (2).png" %}');">
+                        <span class="save-tag">SAVE 18%</span>
+                    </div>
+                    <h3>All in One Bucket</h3>
+                    <p class="meta">Non veg</p>
+                    <p class="desc">Leg, Wings, Strips, Dips & Pepsi</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+                <div class="bucket-card">
+                    <div class="bucket-img" style="background-image:url('{% static "img/menu (9).png" %}');">
+                        <span class="save-tag">SAVE 18%</span>
+                    </div>
+                    <h3>All in One Bucket</h3>
+                    <p class="meta">Non veg</p>
+                    <p class="desc">Leg, Wings, Strips, Dips & Pepsi</p>
+                    <button class="cart-btn">Add to cart</button>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
 </section>
-
 
 {% endblock content %}

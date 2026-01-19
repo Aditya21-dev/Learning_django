@@ -4,10 +4,305 @@
 {% block title %} KFC_Reward.html {% endblock title %}
 
 {% block css %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
+    body {
+        background: #f5f5f5;
+    }
+
+    /* HERO */
+    .hero {
+        background: rgb(0, 0, 0); 
+        height: 60vh;
+        background:url("{% static 'img/reward.jpg' %}") center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        padding: 0 80px;
+    }
+
+    .hero h1 {
+        /* background: rgba(94, 6, 6, 0.9); */
+        color: aliceblue;
+        padding: 20px 30px;
+        border-radius: 10px;
+        font-weight: 900;
+        font-size: 50px;
+        text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.601);
+    }
+
+    /* MAIN LAYOUT */
+    .main {
+        max-width: 1200px;
+        margin: 60px auto;
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 40px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+        background:#fff;
+        border-radius:12px;
+        padding:20px;
+        height:fit-content;
+
+        position: sticky;
+        top: 120px;
+    }
+
+    .user-box {
+        display: flex;
+        gap: 12px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .avatar {
+        width: 42px;
+        height: 42px;
+        background: #000;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+    }
+
+    .menu li {
+        list-style: none;
+        padding: 12px 0;
+        cursor: pointer;
+    }
+
+    .menu li.active {
+        font-weight: 700;
+    }
+
+    .menu li:hover {
+        color: #e4002b;
+    }
+
+    /* REWARD SECTION */
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .reward-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .reward-card {
+        background: #6f6f6f;
+        color: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        position: relative;
+        text-align: center;
+    }
+
+    .reward-card img {
+        width: 100px;
+        margin-bottom: 15px;
+    }
+
+    .lock-circle {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #e4002b;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .points {
+        background: #444;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+    }
+
+    /* OFFERS */
+    .offer-card {
+        background: #faf8f6;
+        border-radius: 12px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 30px 0;
+    }
+
+    .offer-card img {
+        width: 120px;
+    }
+
+    .offer-details {
+        flex: 1;
+        margin-left: 30px;
+    }
+
+    .expiry {
+        color: red;
+        font-weight: 600;
+    }
+
+    .redeem-btn {
+        padding: 12px 30px;
+        border-radius: 30px;
+        border: 1px solid #000;
+        background: none;
+    }
+</style>
 {% endblock css %}
 
 
 {% block content %}
-    
+
+<section class="hero">
+    <h1>Fresh. Crispy. Rewards. <br> More orders, more delight,<br>
+Your cravings deserve a little celebration.</h1>
+</section>
+
+<section class="main">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="user-box">
+            <div class="avatar">AD</div>
+            <div>
+                <h4>Welcome, Aditya</h4>
+                <span>PTS: 0</span>
+            </div>
+        </div>
+
+        <ul class="menu">
+            <li class="active">The Latest</li>
+            <li>Rewards</li>
+            <li>Offers</li>
+            <li>Badges</li>
+            <li>How it Works</li>
+            <li>Rewards History</li>
+        </ul>
+    </aside>
+
+    <!-- RIGHT -->
+    <div>
+
+        <!-- REWARDS -->
+        <div class="section-header">
+            <h2>REWARD</h2>
+            <a href="#">See All</a>
+        </div>
+
+        <div class="reward-grid">
+            <div class="reward-card">
+                <img src="{% static 'img/menue (2).png' %}">
+                <div class="lock-circle"><i class="fa-solid fa-lock"></i></div>
+                <p>1 pc. Chicken</p>
+                <span class="points">250</span>
+            </div>
+
+            <div class="reward-card">
+                <img src="{% static 'img/latest (4).png' %}">
+                <div class="lock-circle"><i class="fa-solid fa-lock"></i></div>
+                <p>5 pc. Nuggets</p>
+                <span class="points">250</span>
+            </div>
+
+            <div class="reward-card">
+                <img src="{% static 'img/menu (6).png' %}">
+                <div class="lock-circle"><i class="fa-solid fa-lock"></i></div>
+                <p>Chicken Little</p>
+                <span class="points">250</span>
+            </div>
+
+            <div class="reward-card">
+                <img src="{% static 'img/images.jpeg' %}">
+                <div class="lock-circle"><i class="fa-solid fa-lock"></i></div>
+                <p>Individual Side</p>
+                <span class="points">250</span>
+            </div>
+        </div>
+
+        <!-- OFFERS -->
+        <div class="section-header" style="margin-top:50px;">
+            <h2>OFFERS</h2>
+            <a href="#">See All</a>
+        </div>
+
+        <div class="offer-card">
+            <img src="{% static 'img/latest (5).png' %}">
+            <div class="offer-details">
+                <h4>FREE MEDIUM DRINK</h4>
+                <p>With 10+ digital purchase</p>
+                <span class="expiry">Expires soon</span>
+            </div>
+            <button class="redeem-btn">Redeem</button>
+        </div>
+
+        <div class="offer-card">
+            <img src="{% static 'img/menue (4).png' %}">
+            <div class="offer-details">
+                <h4>30% OFF 8 PC MEAL</h4>
+                <span class="expiry">Expires soon</span>
+            </div>
+            <button class="redeem-btn">Redeem</button>
+        </div>
+        <div class="offer-card">
+            <img src="{% static 'img/latest (5).png' %}">
+            <div class="offer-details">
+                <h4>FREE MEDIUM DRINK</h4>
+                <p>With 10+ digital purchase</p>
+                <span class="expiry">Expires soon</span>
+            </div>
+            <button class="redeem-btn">Redeem</button>
+        </div>
+
+        <div class="offer-card">
+            <img src="{% static 'img/menue (4).png' %}">
+            <div class="offer-details">
+                <h4>30% OFF 8 PC MEAL</h4>
+                <span class="expiry">Expires soon</span>
+            </div>
+            <button class="redeem-btn">Redeem</button>
+        </div>
+        <div class="offer-card">
+            <img src="{% static 'img/latest (5).png' %}">
+            <div class="offer-details">
+                <h4>FREE MEDIUM DRINK</h4>
+                <p>With 10+ digital purchase</p>
+                <span class="expiry">Expires soon</span>
+            </div>
+            <button class="redeem-btn">Redeem</button>
+        </div>
+
+        <div class="offer-card">
+            <img src="{% static 'img/menue (4).png' %}">
+            <div class="offer-details">
+                <h4>30% OFF 8 PC MEAL</h4>
+                <span class="expiry">Expires soon</span>
+            </div>
+            <button class="redeem-btn">Redeem</button>
+        </div>
+
+    </div>
+
+</section>
+
 {% endblock content %}

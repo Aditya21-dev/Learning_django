@@ -5,10 +5,15 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ===== HEADER ===== */
+/* ================= NAVBAR ================= */
 .top-header {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
     background: #fff;
     border-bottom: 1px solid #ddd;
+    z-index: 1000;
 }
 
 .nav-container {
@@ -39,27 +44,24 @@
 }
 
 .nav-links a {
-    position: relative;
     margin: 0 12px;
     text-decoration: none;
     color: #000;
     font-weight: 600;
-    padding-bottom: 5px;
+    position: relative;
 }
 
-/* underline (hidden by default) */
 .nav-links a::after {
     content: "";
     position: absolute;
     left: 0;
-    bottom: 0;
-    width: 0%;
+    bottom: -6px;
+    width: 0;
     height: 3px;
-    background-color: #e4002b;
-    transition: width 0.3s ease-in-out;
+    background: #e4002b;
+    transition: 0.3s;
 }
 
-/* on hover */
 .nav-links a:hover::after {
     width: 100%;
 }
@@ -67,57 +69,60 @@
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    text-decoration: none;
+}
+
+.user-icon:hover {
+    background: #000;
+    color: #fff;
+}
 
 .order-btn {
     background: #e4002b;
-    color: white;
+    color: #fff;
     border: none;
     padding: 10px 22px;
     border-radius: 25px;
-    cursor: pointer;
     font-weight: bold;
+    cursor: pointer;
 }
 
-/* ===== ORDER BAR ===== */
+/* ================= ORDER BAR ================= */
 .order-bar {
+    position: relative;
+    top: px; /* navbar height */
+    left: 0;
+    width: 100%;
     background: #222;
     color: #fff;
-    padding: 15px;
+    z-index: 999;
+
+    padding: 14px 20px;
     display: flex;
     justify-content: center;
-    gap: 20px;
     align-items: center;
+    gap: 20px;
 }
 
 .order-toggle button {
     padding: 8px 18px;
     border-radius: 20px;
-    border: 1px solid #fff;
+    border: 1px solid #ccc;
     background: transparent;
-    color: white;
+    color: #fff;
     cursor: pointer;
-}
-
-.user-icon {
-  width: 40px;
-  height: 40px;
-  border: 1.5px solid #000;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 15px;
-  cursor: pointer;
-  font-size: 18px;
-  transition: all 0.3s ease;
-}
-
-.user-icon:hover {
-  background: #ff0000;
-  color: #fff;
 }
 
 .order-toggle .active {
@@ -125,7 +130,13 @@
     border: none;
 }
 
-/* ===== FOOTER ===== */
+/* ================= MAIN CONTENT ================= */
+/* THIS IS THE MOST IMPORTANT FIX */
+main {
+    margin-top: 10px; /* navbar + order bar */
+}
+
+/* ================= FOOTER ================= */
 .footer {
     background: #232427;
     color: #ccc;
@@ -138,30 +149,23 @@
     font-size: 14px;
 }
 
-.calorie-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
 .footer-links {
-    justify-items: center;
     max-width: 1200px;
-    margin: 90px auto;
+    margin: 70px auto;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 30px;
 }
 
 .footer-links h3 {
-    color: white;
+    color: #fff;
     margin-bottom: 10px;
 }
 
 .footer-links a {
-    display: block;
-    text-decoration: none;
     color: #ccc;
-    font-size: 14px;
+    text-decoration: none;
+    display: block;
     margin-bottom: 8px;
 }
 

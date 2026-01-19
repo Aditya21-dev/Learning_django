@@ -4,10 +4,584 @@
 {% block title %} KFC_Careers.html {% endblock title %}
 
 {% block css %}
+<style>
+    /* ================= CAREER HERO ================= */
+
+    .career-hero {
+        position: relative;
+        height: 70vh;
+        background-image: url("{% static 'img/outlet.webp' %}");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* dark overlay */
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+    }
+
+    /* text container */
+    .hero-content {
+        position: relative;
+        text-align: center;
+        color: #fff;
+        max-width: 800px;
+        padding: 0 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 48px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+        line-height: 1.6;
+        opacity: 0.95;
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+        .hero-content h1 {
+            font-size: 32px;
+        }
+
+        .career-hero {
+            height: 55vh;
+        }
+    }
+
+    /* ===== TOP OPTIONS BAR ===== */
+
+    .career-topbar {
+        background: #1f1f1f;
+        color: #fff;
+    }
+
+    .topbar-inner {
+        max-width: 1200px;
+        margin: auto;
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .brand {
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .career-nav a {
+        color: #bbb;
+        margin-left: 25px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .career-nav a.active {
+        color: #fff;
+        font-weight: 700;
+    }
+
+    /* ===== MAP SECTION ===== */
+
+    .career-map-section {
+        display: grid;
+        grid-template-columns: 420px 1fr;
+        height: 75vh;
+    }
+
+    /* LEFT CARD */
+
+    .career-card {
+        background: #fff;
+        padding: 40px 35px;
+        z-index: 2;
+    }
+
+    .card-stripes {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 20px;
+    }
+
+    .card-stripes span {
+        width: 8px;
+        height: 18px;
+        background: #e4002b;
+    }
+
+    .career-card h2 {
+        font-size: 24px;
+        font-weight: 900;
+        margin-bottom: 25px;
+    }
+
+    .career-card select {
+        width: 100%;
+        padding: 12px;
+        border-radius: 25px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+
+    .location {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 15px;
+        border-radius: 25px;
+        border: 1px solid #ccc;
+        margin-bottom: 25px;
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        background: #000;
+        color: #fff;
+        padding: 12px 35px;
+        border-radius: 25px;
+        border: none;
+        font-weight: 700;
+    }
+
+    /* MAP */
+
+    .map-box iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+        .career-map-section {
+            grid-template-columns: 1fr;
+            height: auto;
+        }
+
+        .map-box {
+            height: 400px;
+        }
+
+        .career-nav {
+            display: none;
+        }
+    }
+
+    /* ===== JOB SLIDER SECTION ===== */
+
+    .job-slider-section {
+        padding: 80px 40px;
+        background: #fff;
+    }
+
+    .slider-heading {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .slider-heading small {
+        letter-spacing: 2px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .slider-heading h2 {
+        font-size: 34px;
+        font-weight: 900;
+        margin-top: 10px;
+    }
+
+    /* ===== SLIDER ===== */
+
+    .job-slider {
+        display: flex;
+        gap: 30px;
+        overflow-x: auto;
+        padding-bottom: 30px;
+        scroll-snap-type: x mandatory;
+    }
+
+    .job-slider::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .job-slider::-webkit-scrollbar-thumb {
+        background: #000;
+        border-radius: 10px;
+    }
+
+    /* ===== CARD ===== */
+
+    .job-card {
+        min-width: 280px;
+        height: 420px;
+        position: relative;
+        scroll-snap-align: start;
+        overflow: hidden;
+    }
+
+    .job-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* TEXT OVER IMAGE */
+
+    .job-text {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: #fff;
+    }
+
+    .job-text span {
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+
+    .job-text h3 {
+        font-size: 20px;
+        font-weight: 900;
+        margin-top: 6px;
+    }
+
+    /* ===== INTERVIEW PROCESS SECTION ===== */
+
+    .interview-section {
+        background: #fff;
+        padding: 100px 20px;
+    }
+
+    .interview-container {
+        max-width: 760px;
+        margin: auto;
+    }
+
+    .section-tag {
+        font-size: 12px;
+        letter-spacing: 2px;
+        font-weight: 600;
+        color: #000;
+    }
+
+    .section-title {
+        font-size: 48px;
+        font-weight: 900;
+        margin: 10px 0 25px;
+    }
+
+    .section-desc {
+        font-size: 15px;
+        line-height: 1.8;
+        color: #666;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid #ddd;
+        margin: 40px 0;
+    }
+
+    /* ===== STEPS ===== */
+
+    .process-step {
+        padding: 10px 0;
+    }
+
+    .step-number {
+        font-size: 14px;
+        color: #999;
+        font-weight: 600;
+    }
+
+    .process-step h3 {
+        font-size: 22px;
+        font-weight: 900;
+        margin: 8px 0;
+    }
+
+    .process-step p {
+        font-size: 14px;
+        color: #666;
+    }
+
+    /* ===== TESTIMONIAL SECTION ===== */
+
+    .testimonial-section {
+        background: #fff;
+        padding: 120px 20px;
+    }
+
+    .testimonial-container {
+        max-width: 1200px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        gap: 80px;
+    }
+
+    /* IMAGE */
+    .testimonial-image img {
+        width: 100%;
+        max-width: 420px;
+        object-fit: cover;
+    }
+
+    /* TEXT */
+    .testimonial-text {
+        max-width: 500px;
+    }
+
+    .quote {
+        font-size: 32px;
+        font-weight: 900;
+        line-height: 1.4;
+        margin-bottom: 20px;
+    }
+
+    .author {
+        font-size: 14px;
+        color: #666;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+        .testimonial-container {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .quote {
+            font-size: 26px;
+        }
+    }
+</style>
 
 {% endblock css %}
 
 
 {% block content %}
-    
+
+<section class="career-hero">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <h1>JOIN OUR KFC FAMILY</h1>
+        <p>
+            You can start searching for jobs on the map below or scroll to learn
+            more about working at KFC.
+        </p>
+    </div>
+</section>
+
+<!-- TOP OPTIONS BAR -->
+<section class="career-topbar">
+    <div class="topbar-inner">
+        <span class="brand">EXPLORE KFC CAREERS</span>
+
+        <nav class="career-nav">
+            <a class="active" href="#">Join the Family</a>
+            <a href="#">Our Culture</a>
+            <a href="#">Restaurant Career Growth</a>
+            <a href="#">Corporate Careers</a>
+            <a href="#">Search Jobs</a>
+        </nav>
+    </div>
+</section>
+
+<!-- MAP SECTION -->
+<section class="career-map-section">
+
+    <!-- LEFT CARD -->
+    <div class="career-card">
+        <div class="card-stripes">
+            <span></span><span></span><span></span>
+        </div>
+
+        <h2>
+            BROWSE KFC<br>
+            OPPORTUNITIES IN YOUR<br>
+            AREA:
+        </h2>
+
+        <select>
+            <option>All Positions</option>
+        </select>
+
+        <div class="location">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>NASHVILLE, TN 37201–37222</span>
+        </div>
+
+        <button class="submit-btn">Submit</button>
+    </div>
+
+    <!-- RIGHT MAP -->
+    <div class="map-box">
+        <iframe src="https://www.google.com/maps?q=Nashville&output=embed" loading="lazy">
+        </iframe>
+    </div>
+
+</section>
+
+<section class="job-slider-section">
+
+    <div class="slider-heading">
+        <small>READY TO APPLY?</small>
+        <h2>CHOOSE A RESTAURANT JOB</h2>
+    </div>
+
+    <div class="job-slider">
+
+        <div class="job-card">
+            <img src="{% static 'img/career (5).png' %}" alt="">
+            <div class="job-text">
+                <span>TEAM MEMBER</span>
+                <h3>COOK</h3>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <img src="{% static 'img/career (4).png' %}" alt="">
+            <div class="job-text">
+                <span>TEAM MEMBER</span>
+                <h3>CUSTOMER SERVICE</h3>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <img src="{% static 'img/career (3).png' %}" alt="">
+            <div class="job-text">
+                <span>SUPERVISOR</span>
+                <h3>SHIFT SUPERVISOR</h3>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <img src="{% static 'img/career (2).png' %}" alt="">
+            <div class="job-text">
+                <span>MANAGER</span>
+                <h3>ASSISTANT MANAGER</h3>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <img src="{% static 'img/career (1).png' %}" alt="">
+            <div class="job-text">
+                <span>MANAGER</span>
+                <h3>GENERAL MANAGER</h3>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <img src="{% static 'img/career (5).png' %}" alt="">
+            <div class="job-text">
+                <span>TEAM MEMBER</span>
+                <h3>COOK</h3>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <img src="{% static 'img/career (4).png' %}" alt="">
+            <div class="job-text">
+                <span>TEAM MEMBER</span>
+                <h3>CUSTOMER SERVICE</h3>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <img src="{% static 'img/career (3).png' %}" alt="">
+            <div class="job-text">
+                <span>SUPERVISOR</span>
+                <h3>SHIFT SUPERVISOR</h3>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="interview-section">
+
+    <div class="interview-container">
+
+        <span class="section-tag">RESTAURANT</span>
+        <h1 class="section-title">INTERVIEW PROCESS</h1>
+
+        <p class="section-desc">
+            At KFC, we know your time is valuable and want to prepare you for what is next!
+            See what happens after you fill out an application for one of our Restaurant
+            Opportunities. Note: Most KFC restaurants are operated by independent franchisees
+            who have their own hiring and benefits guidelines. These requirements may vary by
+            location, and you’ll learn more when you meet with the hiring manager.
+        </p>
+
+        <hr>
+
+        <div class="process-step">
+            <span class="step-number">01</span>
+            <h3>APPLICATION</h3>
+            <p>Your application will be reviewed by the restaurant leader.</p>
+        </div>
+
+        <hr>
+
+        <div class="process-step">
+            <span class="step-number">02</span>
+            <h3>SCHEDULING</h3>
+            <p>One of the restaurant leaders will reach out to schedule an interview!</p>
+        </div>
+
+        <hr>
+
+        <div class="process-step">
+            <span class="step-number">03</span>
+            <h3>INTERVIEW</h3>
+            <p>Meet with the hiring manager to learn more about the role.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="testimonial-section">
+
+    <div class="testimonial-container">
+
+        <div class="testimonial-image">
+            <img src="{% static 'img/creer (6).png' %}" alt="KFC Team Member">
+        </div>
+
+        <div class="testimonial-text">
+            <p class="quote">
+                “I am experiencing new things, learning new skills and meeting new people.
+                And I’m working at a great place with great people.”
+            </p>
+
+            <span class="author">
+                Luis, Team Member, Overland Park, KS
+            </span>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+
 {% endblock content %}
