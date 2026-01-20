@@ -1,0 +1,21 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block content %}
+    <form action="{% url 'set' %}">
+        <button type="submit"> Set_Cookie</button>
+    </form>
+    {% comment %} why not use this way 
+                    -> not clean design use for form but useable for right choce for short work lrequired long code {% endcomment %}
+    <br>
+    <button type="submit"> <a href="{% url 'get' %}">Get_Cookes</a> </button>
+    {% comment %} why not use this way 
+                    -> not clean design  {% endcomment %}
+    <br>
+    <br>
+    <a href="{% url 'delete' %}"><button type="button">Delete_Cookie</button> </a> 
+    {% comment %} best way to makwe an button cause 
+                    -> clean design and render faster  {% endcomment %}
+    
+    
+{% endblock content %}

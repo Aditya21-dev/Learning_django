@@ -1,0 +1,21 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block content %}
+    <a href="{% url 'landing' %}">Back</a>
+
+<h1>Registration Form</h1>
+<form action="{% url 'set' %}" method="post">
+    {% csrf_token %}
+    Name:  <input type="text" name="name">
+    <br>
+    <br>
+    Email: <input type="email" name="email">
+    <br>
+    <br>
+    Password: <input type="password" name="pass">
+    <br>
+    <br>
+    <input type="submit" value="Register">
+</form>
+{% endblock content %}
