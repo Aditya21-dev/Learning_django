@@ -72,7 +72,7 @@
     gap: 12px;
 }
 
-.user-icon {
+/* .user-icon {
     width: 40px;
     height: 40px;
     border: 1.5px solid #000;
@@ -85,9 +85,35 @@
 }
 
 .user-icon:hover {
-    background: #000;
+    background: #870000;
+    
+} */
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.user-icon:hover {
+    background: #e4002b;
+}
+
+.user-icon i {
+    transition: color 0.3s ease;
+}
+
+.user-icon:hover i {
     color: #fff;
 }
+
 
 .order-btn {
     background: #e4002b;
