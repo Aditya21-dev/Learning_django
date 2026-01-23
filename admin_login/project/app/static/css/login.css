@@ -1,0 +1,42 @@
+/* =========================
+   LOGIN FORM
+========================= */
+.login-section {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+}
+
+.login-box {
+    background-color: #fff;
+    padding: 40px;
+    width: 100%;
+    max-width: 380px;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #111;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #111;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background-color: #333;
+}

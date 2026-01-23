@@ -1,0 +1,123 @@
+/* ====== RESET (optional but clean) ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ====== NAVBAR ====== */
+.navbar {
+    background: #111;
+    color: #fff;
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 15px;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #fff;
+}
+
+.auth-buttons a {
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 14px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.auth-buttons .login {
+    color: #ccc;
+}
+
+.auth-buttons .login:hover {
+    color: #fff;
+}
+
+.auth-buttons .register {
+    background: #fff;
+    color: #111;
+}
+
+.auth-buttons .register:hover {
+    background: #ddd;
+}
+
+/* ====== FOOTER ====== */
+.footer {
+    background-color: #111;
+    color: #ddd;
+    padding: 40px 0 20px;
+    margin-top: 60px;
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: #fff;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.footer-section p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #bbb;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: #bbb;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #fff;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #222;
+    font-size: 13px;
+    color: #888;
+}

@@ -123,8 +123,10 @@
             <h1 class="modal-title">REGISTRATION </h1>
 
             <!-- Form -->
-            <form action="{% url 'formdata' %}" method="post">
+            <form method="post">
                 {% csrf_token %}
+
+                {{mseg}}
 
                 <label>User Name</label>
                 <input type="text" placeholder="" name="user_name" required>

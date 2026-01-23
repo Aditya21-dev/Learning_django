@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: #f4f6f8;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #111827;
+    padding: 20px;
+    position: fixed;
+}
+
+.logo {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.menu-item:hover {
+    background-color: #1f2933;
+    color: #ffffff;
+}
+
+
+/* Main Content */
+.main-content {
+    margin-left: 260px;
+    padding: 50px;
+    width: 100%;
+}
+
+/* Welcome Text */
+.welcome-text {
+    font-size: 32px;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.sub-text {
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+/* Admin Details */
+.admin-details p {
+    font-size: 17px;
+    margin-bottom: 12px;
+    color: #374151;
+}
+
+.admin-details span {
+    font-weight: 600;
+    color: #111827;
+}

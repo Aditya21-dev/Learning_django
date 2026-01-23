@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} base {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+
+
+    {% block css %}
+
+    {% endblock css %}
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            MyWebsite
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href"{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'servis' %}">Services</a></li>
+        </ul>
+
+        <div class="auth-buttons">
+            wellcome {{data.name | default:"Gauest"}}
+            {% if not data %}
+                <a href="{% url 'login' %}" class="login">Login</a>
+                <a href="{% url 'register' %}" class="register">Register</a>
+            {% else %}
+                <a href="{% url 'logout' %}"> logout </a>
+            {% endif %}
+            
+        </div>
+    </nav>
+
+
+    {% block content %}
+
+
+    {% endblock content %}
+
+
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-section">
+                <h3>MyWebsite</h3>
+                <p>
+                    Creating simple, elegant and meaningful digital experiences.
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 MyWebsite. All rights reserved.
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

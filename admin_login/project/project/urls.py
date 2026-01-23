@@ -1,5 +1,5 @@
 """
-URL configuration for KFC_project project.
+URL configuration for project project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/6.0/topics/http/urls/
@@ -16,14 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from KFC_app import views
+from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home,name="home"),
-    path('menu/',views.menu,name="menu"),
-    path('reward/',views.reward,name="reward"),
-    path('careers/',views.careers,name="careers"),
-    path('registration/',views.registration,name="registration"),
-    path('login/',views.login,name="login"),
+    path('',views.home,name='home'),
+    path('about/',views.about,name='about'),
+    path('servis/',views.servis,name='servis'),
+    path('register/',views.register,name='register'),
+    path('login/',views.login,name='login'),
+    path('dashboard/',views.dashboard,name='dashboard'),
+    path('logout/',views.logout,name='logout')
 ]
