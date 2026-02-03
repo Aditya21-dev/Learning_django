@@ -26,5 +26,17 @@ urlpatterns = [
     path('register/',views.register,name='register'),
     path('login/',views.login,name='login'),
     path('dashboard/',views.dashboard,name='dashboard'),
-    path('logout/',views.logout,name='logout')
+    path('logout/',views.logout,name='logout'),
+
+
+    path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('add_department/', views.add_department, name='add_department'),
+    path('save_department/', views.save_department, name='save_department'),
+    path('show_departments/', views.show_departments, name='show_departments'),
+
+    path('add_employee/', views.add_employee, name='add_employee'),
+    path('save_employee/', views.save_employee, name='save_employee'),
+    path('show_employees/', views.show_employees, name='show_employees'),
+
+    
 ]

@@ -1,58 +1,398 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+{% block title %}Admin{% endblock title %}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
-</head>
+{% block css %}
+<style>
+    footer.footer {
+        margin-top: 0 !important;
+    }
 
-<body>
+    /* Layout */
+    .admin-wrapper {
+        display: flex;
+        background-color: #f4f6f8;
+        min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 260px;
+        background-color: #111827;
+        padding: 20px;
+    }
+
+    .sidebar .logo {
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: #cbd5e1;
+        text-decoration: none;
+        padding: 12px 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        transition: 0.2s;
+    }
+
+    .menu-item:hover {
+        background-color: #1f2937;
+        color: #ffffff;
+    }
+
+    /* Main Content */
+    .main-content {
+        flex: 1;
+        padding: 50px;
+        background-color: #f9fafb;
+    }
+
+    /* =========================
+       FORM STYLING (UPDATED)
+       ========================= */
+    form {
+        background: #ffffff;
+        padding: 30px 35px;
+        border-radius: 10px;
+        width: fit-content;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    label {
+        font-weight: 500;
+        color: #374151;
+        font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 320px;
+        padding: 9px 10px;
+        margin-top: 6px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 14px;
+        outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #111827;
+    }
+
+    button {
+        padding: 10px 22px;
+        background: #111827;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        margin-top: 12px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    button:hover {
+        background-color: #1f2937;
+    }
+
+    /* =========================
+       TABLE STYLING (UPDATED)
+       ========================= */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    table th,
+    table td {
+        padding: 12px 14px;
+        font-size: 14px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    table th {
+        background-color: #111827;
+        color: white;
+        text-align: left;
+        font-weight: 500;
+    }
+
+    table tr:last-child td {
+        border-bottom: none;
+    }
+
+    table tr:hover td {
+        background-color: #f9fafb;
+    }
+
+    .dashboard-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 22px;
+        margin-top: 30px;
+    }
+
+    .card {
+        background: #ffffff;
+        padding: 22px;
+        border-radius: 14px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transition: 0.25s;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+    }
+
+    .card h3 {
+        font-size: 15px;
+        color: #6b7280;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        font-size: 26px;
+        font-weight: 600;
+        color: #111827;
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<div class="admin-wrapper">
 
     <!-- Sidebar -->
     <div class="sidebar">
         <h2 class="logo">Admin Panel</h2>
 
-        <a href="#" class="menu-item">
-            <i class="fa-solid fa-user-plus"></i>
-            Add Employee
+        <a href={% url "admin_dashboard" %} class="menu-item">
+            <i class="fa-solid fa-building"></i> Aadmin Dasboard
         </a>
 
-        <a href="#" class="menu-item">
-            <i class="fa-solid fa-building"></i>
-            Add Department
+        <a href={% url "add_department" %} class="menu-item">
+            <i class="fa-solid fa-building"></i> Add Department
         </a>
 
-        <a href="#" class="menu-item">
-            <i class="fa-solid fa-users"></i>
-            Show Employees
+        <a href={% url "add_employee" %} class="menu-item">
+            <i class="fa-solid fa-building"></i> Add Employee
         </a>
 
-        <a href="#" class="menu-item">
-            <i class="fa-solid fa-layer-group"></i>
-            Show Departments
+        <a href={% url "show_employees" %} class="menu-item">
+            <i class="fa-solid fa-users"></i> Show Employee
         </a>
 
-        <a href="#" class="menu-item">
-            <i class="fa-solid fa-envelope-open-text"></i>
-            Show Queries
+        <a href={% url "show_departments" %} class="menu-item">
+            <i class="fa-solid fa-users"></i> Show Department
         </a>
+
+
+
     </div>
+
+    <!-- Main Content -->
     <div class="main-content">
 
-        <h1 class="welcome-text">Welcome, Admin</h1>
-        <p class="sub-text">You are logged in successfully.</p>
+        <h1>Welcome, Admin</h1>
+        <p>You are logged in successfully.</p>
 
         <div class="admin-details">
-            <p><span>Name :</span> {{ data.name }}</p>
-            <p><span>Email :</span> {{ data.email }}</p>
-            <p><span>Password :</span> {{ data.password }}</p>
+            <p><b>Name :</b> {{ data.name }}</p>
+            <p><b>Email :</b> {{ data.email }}</p>
         </div>
 
-    </div>
+        {% if messages %}
+        {% for message in messages %}
+        <div style="
+        padding: 12px 18px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        background-color: {% if message.tags == 'success' %}#dcfce7{% elif message.tags == 'error' %}#fee2e2{% else %}#e0f2fe{% endif %};
+        color: #111827;
+        font-size: 14px;
+    ">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
 
-</body>
-</html>
+        <br>
+        <br>
+
+        {% if admin_dashboard %}
+        <h2>Dashboard Overview</h2>
+        <br>
+
+        <div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+            <div style="background:white; padding:20px; border-radius:10px; width:220px;">
+                <h3>Total Employees</h3>
+                <p style="font-size:28px; font-weight:bold;">
+                    {{ total_employees }}
+                </p>
+            </div>
+
+            <div style="background:white; padding:20px; border-radius:10px; width:220px;">
+                <h3>Total Departments</h3>
+                <p style="font-size:28px; font-weight:bold;">
+                    {{ total_departments }}
+                </p>
+            </div>
+
+            <div style="background:white; padding:20px; border-radius:10px; width:220px;">
+                <h3>Total Queries</h3>
+                <p style="font-size:28px; font-weight:bold;">
+                    {{ total_queries }}
+                </p>
+            </div>
+
+            <div style="background:white; padding:20px; border-radius:10px; width:220px;">
+                <h3>Pending Queries</h3>
+                <p style="font-size:28px; font-weight:bold;">
+                    {{ pending_queries }}
+                </p>
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        {% if add_employee %}
+        <h2>Add Employee</h2><br>
+
+        <form action="{% url " save_employee" %}" method="POST">
+            {% csrf_token %}
+
+            <label>Employee ID</label><br>
+            <input type="text" name="employee_id" placeholder="EMP001" required><br><br>
+
+            <label>Full Name</label><br>
+            <input type="text" name="name" placeholder="Enter full name" required><br><br>
+
+            <label>Email Address</label><br>
+            <input type="email" name="email" placeholder="example@company.com" required><br><br>
+
+            <label>Date of Birth</label><br>
+            <input type="date" name="dob" required><br><br>
+
+            <label>Gender</label><br>
+            <input type="radio" name="gender" value="Male" required> Male &nbsp;
+            <input type="radio" name="gender" value="Female"> Female &nbsp;
+            <input type="radio" name="gender" value="Other"> Other
+            <br><br>
+
+            <label>Department</label><br>
+            <select name="department" required>
+                <option value="">Select Department</option>
+                {% for dept in departments %}
+                <option value="{{ dept.department_name }}">
+                    {{ dept.department_name }}
+                </option>
+                {% endfor %}
+            </select><br><br>
+
+            <button type="submit">Add Employee</button>
+        </form>
+
+        {% elif add_department %}
+        <h2>Add Department</h2><br>
+
+        <form action="{% url 'save_department' %}" method="POST">
+            {% csrf_token %}
+
+            <label>Department Name</label><br>
+            <input type="text" name="department_name" required><br><br>
+
+            <label>Department Code</label><br>
+            <input type="text" name="department_code" required><br><br>
+
+            <label>Department Description</label><br>
+            <textarea name="department_description" rows="4"></textarea><br><br>
+
+            <label>Department Head</label><br>
+            <input type="text" name="department_head" required><br><br>
+
+            <button type="submit">Add Department</button>
+        </form>
+
+
+        {% elif show_employees %}
+        <h2>Employees List</h2><br>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Employee ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Department</th>
+            </tr>
+
+            {% for emp in employees %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ emp.employee_id }}</td>
+                <td>{{ emp.name }}</td>
+                <td>{{ emp.email }}</td>
+                <td>{{ emp.dob }}</td>
+                <td>{{ emp.gender }}</td>
+                <td>{{ emp.department }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No employees found</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+
+
+        {% elif show_departments %}
+        <h2>Departments List</h2><br>
+
+        <table>
+            <tr>
+                <th>S.No</th>
+                <th>Department ID</th>
+                <th>Department Name</th>
+                <th>Department Head</th>
+            </tr>
+
+            {% for dept in departments %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ dept.department_code}}</td>
+                <td>{{ dept.department_name }}</td>
+                <td>{{ dept.department_head }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No departments found</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock content %}
