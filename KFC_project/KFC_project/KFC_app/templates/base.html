@@ -36,14 +36,31 @@
             </nav>
 
             <div class="nav-actions">
-                <a href="{% url 'registration' %}" class="user-icon" style="color: black;">
-                    <i class="fa-solid fa-user"></i>
+
+                {% if request.session.user_name %}
+
+                <a href="#" class="user-link"><span style="font-weight:00;" class="user-badge">
+                     Hello, {{ request.session.user_name }}
+                </span> </a>
+
+                <a href="{% url 'logout' %}" class="login-btn">
+                    Logout
                 </a>
+
+                {% else %}
+
+                <a href="{% url 'registration' %}" class="signup-btn">Sign Up</a>
+                <a href="{% url 'login' %}" class="login-btn">Log In</a>
+
+                {% endif %}
 
                 <button class="order-btn">Start Order</button>
             </div>
+
         </div>
     </header>
+
+
 
 
     <section class="order-bar">

@@ -1,0 +1,406 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ================= RESET ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f8;
+        }
+
+        /* ================= TOP NAV ================= */
+        .company-nav {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .company-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .company-logo {
+            width: 42px;
+            height: 42px;
+            background: #e4002b;
+            color: #fff;
+            font-weight: 800;
+            font-size: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .company-left h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .company-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .nav-icon {
+            position: relative;
+            font-size: 18px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-icon:hover {
+            color: #e4002b;
+        }
+
+        .nav-icon .dot {
+            position: absolute;
+            top: -4px;
+            right: -5px;
+            width: 8px;
+            height: 8px;
+            background: #e4002b;
+            border-radius: 50%;
+        }
+
+        .admin-name {
+            padding: 6px 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #fff;
+        }
+
+        /* ================= WRAPPER ================= */
+        .admin-wrapper {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* ================= SIDEBAR ================= */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #1c1f22, #111);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px 22px;
+        }
+
+        .profile-box {
+            margin-bottom: 40px;
+        }
+
+        .kfc-stripes {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 25px;
+        }
+
+        .kfc-stripes span {
+            width: 8px;
+            height: 28px;
+            background: #e4002b;
+        }
+
+        .greeting {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        /* MENU */
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 16px;
+        }
+
+        .sidebar-menu a {
+            color: #9fa3a7;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            display: block;
+            padding: 12px 18px;
+            border-radius: 10px;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+
+        .sidebar-menu a:hover {
+            background: linear-gradient(135deg, #b3001f, #e4002b);
+            color: #ffffff;
+            transform: translateX(6px) scale(1.03);
+            box-shadow: 0 8px 18px rgba(228, 0, 43, 0.45);
+        }
+
+
+        .sidebar-menu a.active {
+            background: linear-gradient(135deg, #b3001f, #e4002b);
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(228, 0, 43, 0.45);
+        }
+
+
+        /* LOGOUT */
+        .logout {
+            margin-top: 40px;
+        }
+
+        .logout a {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border: 1px solid #fff;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .logout a:hover {
+            background: #e4002b;
+            border-color: #e4002b;
+        }
+
+        /* ================= CONTENT ================= */
+        .admin-content {
+            flex: 1;
+            padding: 35px;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .form-card {
+            background: #fff;
+            padding: 30px;
+            max-width: 420px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-card input {
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .form-card button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 25px;
+            background: #e4002b;
+            color: #fff;
+            border: none;
+            font-weight: 600;
+        }
+
+        .data-table {
+            width: 100%;
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .data-table th {
+            background: #e4002b;
+            color: #fff;
+            padding: 14px;
+        }
+
+        .data-table td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP NAV -->
+    <header class="company-nav">
+        <div class="company-left">
+            <div class="company-logo">KFC</div>
+            <h2>KFC Corporation</h2>
+        </div>
+
+        <div class="company-right">
+            <a href="#" class="nav-icon">
+                <i class="fa-regular fa-bell"></i>
+                <span class="dot"></span>
+            </a>
+
+            <a href="#" class="nav-icon">
+                <i class="fa-regular fa-user"></i>
+            </a>
+
+            <!-- <span class="admin-name">
+                {{ request.session.user_name }}
+            </span> -->
+        </div>
+    </header>
+    <!-- BODY -->
+    <div class="admin-wrapper">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div>
+                <div class="profile-box">
+                    <div class="kfc-stripes">
+                        <span></span><span></span><span></span>
+                    </div>
+
+                    <h2 class="greeting">
+                        GOOD MORNING <br>
+                        {{ request.session.user_name|upper }}
+                    </h2>
+                </div>
+
+                <ul class="sidebar-menu">
+                    <li><a href="{% url 'users' %}">Users</a></li>
+                    <li><a href="{% url 'add_department' %}">Add Department</a></li>
+                    <li><a href="{% url 'add_employee' %}">Add Employee</a></li>
+                    <li><a href="{% url 'show_employees' %}">Employees</a></li>
+                    <li><a href="{% url 'show_departments' %}">Departments</a></li>
+                </ul>
+            </div>
+
+            <div class="logout">
+                <a href="{% url 'logout' %}">Log Out</a>
+            </div>
+
+        </aside>
+
+        <main class="admin-content">
+
+            {% if add_employee %}
+
+            <h2 class="section-title">Add Employee</h2>
+            <form method="POST" class="form-card">
+                {% csrf_token %}
+                <input type="text" name="emp_name" placeholder="Employee Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="contact" placeholder="Contact" required>
+                <input type="text" name="department" placeholder="Department" required>
+                <button type="submit">Add Employee</button>
+            </form>
+
+            {% elif add_department %}
+
+            <h2 class="section-title">Add Department</h2>
+            <form method="POST" class="form-card">
+                {% csrf_token %}
+                <input type="text" name="dept_name" placeholder="Department Name" required>
+                <button type="submit">Add Department</button>
+            </form>
+
+            {% elif show_departments %}
+
+            <h2 class="section-title">Departments</h2>
+            <table class="data-table">
+                <tr>
+                    <th>ID</th>
+                    <th>Department Name</th>
+                </tr>
+                {% for d in departments %}
+                <tr>
+                    <td>{{ d.id }}</td>
+                    <td>{{ d.dept_name }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            {% elif show_employees %}
+
+            <h2 class="section-title">Employees</h2>
+            <table class="data-table">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Department</th>
+                </tr>
+                {% for e in employees %}
+                <tr>
+                    <td>{{ e.id }}</td>
+                    <td>{{ e.emp_name }}</td>
+                    <td>{{ e.email }}</td>
+                    <td>{{ e.contact }}</td>
+                    <td>{{ e.department }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            {% elif users %}
+
+            <h2 class="section-title">Users</h2>
+            <table class="data-table">
+                <tr>
+                    <th>ID</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                </tr>
+                {% for u in users %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td>{{ u.user_name }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.contact }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            {% else %}
+
+            <h2 class="section-title">Welcome to Admin Dashboard</h2>
+            <p class="muted-text">Select an option from the sidebar</p>
+
+            {% endif %}
+
+        </main>
+
+
+    </div>
+
+</body>
+
+</html>

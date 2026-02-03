@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.contrib import messages
 from .models import KFC_User
 # Create your views here.
 
@@ -14,25 +15,77 @@ def reward(req):
 def careers(req):
     return render(req,"careers.html")
 
-def registration(req):
-    if req.method == 'POST':
-        n = req.POST.get('user_name')
-        e = req.POST.get('email')
-        c = req.POST.get('contact')
-        p = req.POST.get('password')
-        user = KFC_User.objects.filter(email=e)
 
-        if user:
-            req.session['Ee'] = "email alredy exist"
-            return redirect('registration')
-        else:
-            KFC_User.objects.create(user_name=n,email=e,contact=c,password=p)
-            return redirect('login')
-    msg = req.session.get('Ee','')
-    return render(req,"registration.html",{'mseg':msg})
+def registration(request):
+    if request.method == "POST":
+        user_name = request.POST.get("user_name")
+        email = request.POST.get("email")
+        contact = request.POST.get("contact")
+        password = request.POST.get("password")
+        check_email = KFC_User.objects.filter(email=email)
+        
+        if check_email:
+            messages.error(request, "Email already registered. Please login.")
+            return render(request, "registration.html")
 
-def login(req):
-    if req.mehod == 'POST':
-        e = req.POST.get("email")
-    return render(req,"login.html")
+        KFC_User.objects.create(user_name=user_name,email=email,contact=contact,password=password)
 
+        messages.success(request, "Registration successful. Please login.")
+        return redirect("login")   
+
+    return render(request, "registration.html")
+
+def login(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        try:
+            user = KFC_User.objects.get(email=email, password=password)
+
+            # sirf naam session me
+            request.session["user_name"] = user.user_name
+            request.session["user_email"] = user.email
+            request.session["user_password"] = user.password
+            messages.success(request, "Welcome back")
+            return redirect("home")
+            re
+        except KFC_User.DoesNotExist:
+            return render(request, "login.html")
+
+    return render(request, "login.html")
+
+
+def logout(request):
+    request.session.flush()
+    return redirect("home")
+
+
+
+
+# -----------------ADMIN---------------#
+
+
+def admin_dashboard(req):
+    return render(req,"admin_dashboard.html")
+
+
+def users(req):
+    
+    return render(req, "admin_dashboard.html", {"users": True})
+
+
+def add_department(req):
+    return render(req, "admin_dashboard.html", {"add_department": True})
+
+
+def show_departments(req):
+    return render(req, "admin_dashboard.html", {"show_departments": True})
+
+
+def add_employee(req):
+    return render(req, "admin_dashboard.html", {"add_employee": True})
+
+
+def show_employees(req):
+    return render(req, "admin_dashboard.html", {"show_employees": True})

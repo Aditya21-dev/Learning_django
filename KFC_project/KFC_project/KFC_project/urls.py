@@ -24,6 +24,19 @@ urlpatterns = [
     path('menu/',views.menu,name="menu"),
     path('reward/',views.reward,name="reward"),
     path('careers/',views.careers,name="careers"),
+
     path('registration/',views.registration,name="registration"),
     path('login/',views.login,name="login"),
+    path('logout/',views.logout, name="logout"),
+
+
+    path('admin_dashboard/',views.admin_dashboard, name="admin_dashboard"),
+
+    path('users/',views.users,name="users"),
+    path('add_department/',views.add_department,name="add_department"),
+    path('add_employee/',views.add_employee,name="add_employee"),
+    path('show_employees/',views.show_employees,name="show_employees"),
+    path('show_departments/',views.show_departments,name="show_departments"),
+
+
 ]

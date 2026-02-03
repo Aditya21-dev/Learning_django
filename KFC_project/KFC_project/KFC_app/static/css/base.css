@@ -1,3 +1,4 @@
+/* ================= GLOBAL RESET ================= */
 * {
     margin: 0;
     padding: 0;
@@ -7,11 +8,10 @@
 
 /* ================= NAVBAR ================= */
 .top-header {
-    position: relative;
+    position: sticky;
     top: 0;
-    left: 0;
     width: 100%;
-    background: #fff;
+    background: #ffffff;
     border-bottom: 1px solid #ddd;
     z-index: 1000;
 }
@@ -23,12 +23,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: nowrap;              /* 🔒 prevent breaking */
 }
 
+/* ===== LOGO ===== */
 .logo {
     display: flex;
     align-items: center;
     gap: 10px;
+    white-space: nowrap;
 }
 
 .stripes {
@@ -43,12 +46,19 @@
     );
 }
 
+/* ===== NAV LINKS ===== */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
 .nav-links a {
-    margin: 0 12px;
     text-decoration: none;
     color: #000;
     font-weight: 600;
     position: relative;
+    white-space: nowrap;
 }
 
 .nav-links a::after {
@@ -59,62 +69,81 @@
     width: 0;
     height: 3px;
     background: #e4002b;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 .nav-links a:hover::after {
     width: 100%;
 }
 
+/* ===== RIGHT ACTIONS ===== */
 .nav-actions {
     display: flex;
     align-items: center;
     gap: 12px;
+    white-space: nowrap;          /* 🔒 buttons never wrap */
 }
 
-/* .user-icon {
-    width: 40px;
-    height: 40px;
-    border: 1.5px solid #000;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000;
+/* ===== SIGN UP ===== */
+.signup-btn {
+    padding: 8px 18px;
+    border: 2px solid #000;
+    border-radius: 25px;
     text-decoration: none;
-}
-
-.user-icon:hover {
-    background: #870000;
-    
-} */
-
-.user-icon {
-    width: 40px;
-    height: 40px;
-    border: 1.5px solid #000;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-weight: 600;
     color: #000;
-    text-decoration: none;
     transition: 0.3s ease;
 }
 
-.user-icon:hover {
+.signup-btn:hover {
     background: #e4002b;
-}
-
-.user-icon i {
-    transition: color 0.3s ease;
-}
-
-.user-icon:hover i {
+    border: 2px solid #e4002b;
     color: #fff;
 }
 
+/* ===== LOGIN ===== */
+.login-btn {
+    padding: 8px 18px;
+    border-radius: 25px;
+    border: 2px solid #000;
+    text-decoration: none;
+    font-weight: 600;
+    color: #000;
+    transition: 0.3s ease;
+}
 
+.login-btn:hover {
+    background: #e4002b;
+    border: 2px solid #e4002b;
+    color: #fff;
+}
+
+/* ===== LOGGED IN USER NAME ===== */
+.user-badge {
+    padding: 8px 16px;
+    border: 2px solid #000;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #000;
+    white-space: nowrap;
+    
+}
+.user-link:hover {
+    text-decoration: none;
+}
+.user-link {
+    text-decoration: none;
+}
+
+.user-badge:hover {
+    background: #e4002b;
+    color: #fff;
+    border-color: #e4002b;
+    cursor: default;
+}
+
+/* ===== START ORDER ===== */
 .order-btn {
     background: #e4002b;
     color: #fff;
@@ -125,21 +154,25 @@
     cursor: pointer;
 }
 
+.order-btn:hover {
+    background: #c30024;
+}
+
 /* ================= ORDER BAR ================= */
 .order-bar {
-    position: relative;
-    top: px; /* navbar height */
-    left: 0;
-    width: 100%;
     background: #222;
     color: #fff;
-    z-index: 999;
-
     padding: 14px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
+    flex-wrap: nowrap;
+}
+
+.order-toggle {
+    display: flex;
+    gap: 10px;
 }
 
 .order-toggle button {
@@ -156,10 +189,9 @@
     border: none;
 }
 
-/* ================= MAIN CONTENT ================= */
-/* THIS IS THE MOST IMPORTANT FIX */
+/* ================= MAIN ================= */
 main {
-    margin-top: 10px; /* navbar + order bar */
+    margin-top: 15px;
 }
 
 /* ================= FOOTER ================= */
@@ -169,14 +201,13 @@ main {
     padding: 50px 20px 20px;
 }
 
-.footer-top {
+.footer-top,
+.footer-links {
     max-width: 1200px;
     margin: auto;
-    font-size: 14px;
 }
 
 .footer-links {
-    max-width: 1200px;
     margin: 70px auto;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -185,7 +216,6 @@ main {
 
 .footer-links h3 {
     color: #fff;
-    margin-bottom: 10px;
 }
 
 .footer-links a {
@@ -195,9 +225,26 @@ main {
     margin-bottom: 8px;
 }
 
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
 .footer-bottom {
     border-top: 1px solid #444;
     text-align: center;
     padding-top: 15px;
     font-size: 13px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+    .nav-links {
+        display: none;   /* clean professional behaviour */
+    }
+}
+
+@media (max-width: 576px) {
+    .order-btn {
+        display: none;   /* optional – looks premium */
+    }
 }

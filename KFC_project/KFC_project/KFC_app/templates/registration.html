@@ -110,6 +110,7 @@
 
 <body>
 
+
     <div class="kfc-modal-overlay">
         <div class="kfc-modal">
 
@@ -122,7 +123,14 @@
             <!-- Title -->
             <h1 class="modal-title">REGISTRATION </h1>
 
+            {% if messages %}
+            {% for message in messages %}
+            <p style="color:red; font-weight:600;">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+
             <!-- Form -->
+
             <form method="post">
                 {% csrf_token %}
 
@@ -149,9 +157,10 @@
                     <strong>KFC Rewards Terms & Conditions</strong>.
                 </p>
 
-                <p class="terms">If you already have an account, please <strong><a href="{% url 'login' %}">log in.</a></strong></p>
+                <p class="terms">If you already have an account, please <strong><a href="{% url 'login' %}">log
+                            in.</a></strong></p>
 
-                <button type="submit" class="continue-btn" >
+                <button type="submit" class="continue-btn">
                     Continue
                 </button>
             </form>
