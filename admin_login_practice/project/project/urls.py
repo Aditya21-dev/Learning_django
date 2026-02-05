@@ -28,7 +28,7 @@ urlpatterns = [
     path('dashboard/',views.dashboard,name='dashboard'),
     path('logout/',views.logout,name='logout'),
 
-
+    # ADMIN -------------------------- #
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('add_department/', views.add_department, name='add_department'),
     path('save_department/', views.save_department, name='save_department'),
@@ -37,6 +37,19 @@ urlpatterns = [
     path('add_employee/', views.add_employee, name='add_employee'),
     path('save_employee/', views.save_employee, name='save_employee'),
     path('show_employees/', views.show_employees, name='show_employees'),
+    path('show_queries/', views.show_queries, name='show_queries'),
+
+
+
+    path('employee_dashboard/', views.employee_dashboard, name='employee_dashboard'),
+
+    path('Queries/', views.Queries, name='Queries'),
+    path('Queries/raise/', views.raise_query, name='raise_query'),
+    path('Queries/total/', views.total_queries, name='total_queries'),
+    path('Queries/solved/', views.solved_queries, name='solved_queries'),
+    path('Queries/pending/', views.pending_queries, name='pending_queries'),
+
+    path('save_query/', views.save_query, name='save_query')
 
     
 ]
