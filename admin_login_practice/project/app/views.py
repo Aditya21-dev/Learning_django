@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import User, Department , Employee
+from .models import User, Department , Employee , Query
 from .models import Employee, Department
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -338,8 +338,7 @@ def raise_query(req):
             "employee_data":employee_data
     })
 
-from django.shortcuts import render, redirect
-from .models import Query
+
 
 def save_query(req):
     if req.method == "POST":
