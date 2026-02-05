@@ -200,6 +200,10 @@
             <i class="fa-solid fa-users"></i> Show Department
         </a>
 
+        <a href={% url "show_queries" %} class="menu-item">
+            <i class="fa-solid fa-users"></i> Show Queries
+        </a>
+
 
 
     </div>
@@ -389,6 +393,98 @@
             {% endfor %}
         </table>
 
+        {% elif show_queries %}
+
+        <div class="admin-content">
+            <h1>All Employee Queries</h1>
+            <br>
+
+            <table class="query-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Query</th>
+                        <th>Status</th>
+                        <th>Reply</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for q in employee_queries %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ q.name }}</td>
+                        <td>{{ q.email }}</td>
+                        <td>{{ q.department }}</td>
+                        <td>{{ q.query }}</td>
+                        <td>{{ q.status }}</td>
+
+
+                        <td>
+                            {% if q.admin_reply %}
+                            {{ q.admin_reply }}
+                            {% else %}
+                            <span style="color:#999;">No reply yet</span>
+                            {% endif %}
+                        </td>
+
+
+                        <td>
+                            {% if q.admin_reply %}
+                            <span style="color:green;">Answered</span>
+                            {% else %}
+                            <a href="#" class="btn-submit">
+                                <button> Answer Now </button>
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" style="text-align:center;">
+                            No queries found
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% elif reply_form %}
+
+        <div class="admin-content">
+            <h1>Reply to Employee Query</h1>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <label>Name</label>
+                <input type="text" value="{{ q.name }}" readonly>
+
+                <label>Email</label>
+                <input type="email" value="{{ q.email }}" readonly>
+
+                <label>Department</label>
+                <input type="text" value="{{ q.department }}" readonly>
+
+                <label>Query</label>
+                <textarea rows="4" readonly>"{{ q.query }}" </textarea>
+
+                <label>Status</label>
+                <input type="text" value="{{ q.status }}" readonly>
+
+                <label>Admin Reply</label>
+                <textarea name="admin_reply" rows="4" required></textarea>
+
+                <br><br>
+                <button type="submit">Submit Reply</button>
+            </form>
+        </div>
 
         {% endif %}
 
