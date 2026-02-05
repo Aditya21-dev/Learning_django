@@ -91,11 +91,18 @@ def login(req):
             else:
                 messages.error(req, "Email and password do not match")
                 return redirect('login')
+        
+        employee = Employee.objects.filter(email=e, employee_id=p).first()
+        if employee:
+            req.session['employee_email'] = employee.email
+            return redirect('employee_dashboard')
+        
         else:
             messages.warning(req, "Email not registered, please sign up")
             return redirect('register')
     y = req.session.get('y','')    
     return render(req,'login.html',{'y':y})
+
 
 def dashboard(req):
     if 'admin_email' in req.session and 'admin_password' in req.session:
@@ -286,4 +293,90 @@ def show_employees(req):
         "show_employees": True,
         "employees": employees,
         "data": get_admin_data(req)
+    })
+
+def show_queries(req):
+    employees_queries = Query.objects.all()
+    return render(req, "admin_dashboard.html", {
+        "show_queries": True,
+        "employee_queries": employees_queries,
+        "data": get_admin_data(req)
+    })
+
+
+
+
+
+
+
+
+
+# ===================== EMPLOYEE DASHBOARD =================== #
+
+def employee_dashboard(req):
+    email = req.session.get('employee_email')
+    if not email:
+        return redirect('login')
+    employee = Employee.objects.filter(email=email).first()
+    return render(req, 'employee_dashboard.html', { 
+        "employee_dashboard":True,
+        'employee': employee
+    })
+
+
+
+def Queries(req):
+    return render(req,'employee_dashboard.html',{"Queries":True})
+
+def raise_query(req):
+    email = req.session.get('employee_email')
+    employee_data = Employee.objects.filter(email=email).first()
+
+    if employee_data:
+        return render(req, 'employee_dashboard.html', {
+            "raise_query": True,
+            "employee_data":employee_data
+    })
+
+from django.shortcuts import render, redirect
+from .models import Query
+
+def save_query(req):
+    if req.method == "POST":
+        name = req.POST.get('name')
+        email = req.POST.get('email')
+        department = req.POST.get('department')
+        query = req.POST.get('query')
+
+        Query.objects.create(
+            name=name,
+            email=email,
+            department=department,
+            query=query
+        )
+        messages.success(req, "Querry send successfully....! ")
+        return redirect('Queries')   
+    return redirect('Queries') 
+    
+def total_queries(req):
+    email = req.session.get('employee_email')
+    employee_queries = Query.objects.filter(email=email)
+    return render(req, 'employee_dashboard.html', {
+        "total_queries": True,
+        "employee_queries":employee_queries
+    })
+
+def solved_queries(req):
+    email = req.session.get('employee_email')
+    employee_queries = Query.objects.filter(email=email,status="resolved")
+    return render(req, 'employee_dashboard.html', {
+        "solved_queries": True,
+        "employee_queries":employee_queries
+    })
+def pending_queries(req):
+    email = req.session.get('employee_email')
+    employee_queries = Query.objects.filter(email=email,status="Pending")
+    return render(req, 'employee_dashboard.html', {
+        "pending_queries": True,
+        "employee_queries":employee_queries
     })
