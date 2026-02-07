@@ -1,42 +1,81 @@
 /* =========================
-   LOGIN FORM
+   LOGIN FORM – PROFESSIONAL
 ========================= */
+
 .login-section {
-    min-height: 70vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f4f4f4;
+    background: linear-gradient(135deg, #eef2f7, #f8fafc);
+    padding: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .login-box {
-    background-color: #fff;
-    padding: 40px;
+    background-color: #ffffff;
+    padding: 40px 35px;
     width: 100%;
-    max-width: 380px;
-    border-radius: 10px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    max-width: 400px;
+    border-radius: 14px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12);
 }
 
 .login-box h2 {
     text-align: center;
     margin-bottom: 30px;
-    color: #111;
+    color: #0f172a;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
+/* Input fields (agar add karoge to ready hai) */
+.login-box input {
+    width: 80%;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box input:focus {
+    outline: none;
+    border-color: #111827;
+    box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.15);
+}
+
+/* Button */
 .login-btn {
     width: 100%;
-    padding: 12px;
-    background-color: #111;
+    padding: 13px;
+    background: linear-gradient(135deg, #111827, #1f2933);
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    color: #fff;
+    color: #ffffff;
     margin-top: 10px;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .login-btn:hover {
-    background-color: #333;
+    background: linear-gradient(135deg, #1f2933, #374151);
+    transform: translateY(-1px);
+    transition: 300ms;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }

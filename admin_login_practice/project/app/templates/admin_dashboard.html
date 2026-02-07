@@ -169,6 +169,98 @@
         font-weight: 600;
         color: #111827;
     }
+/* ===== Admin Content Area ===== */
+
+.admin-content {
+    padding: 40px 60px;
+    background: #f4f6f8;
+    min-height: 100vh;
+}
+
+/* Heading */
+.admin-content h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #111;
+}
+
+/* ===== Reply Form Container (Same as Table Card) ===== */
+
+.admin-content form {
+    width: 100%;
+    max-width: 1100px;          /* 🔥 Wide like department table */
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    padding: 35px 40px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Label */
+.admin-content label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #111;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* Inputs & Textarea */
+.admin-content input,
+.admin-content textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+}
+
+/* Readonly fields (same as table feel) */
+.admin-content input[readonly],
+.admin-content textarea[readonly] {
+    background: #f9fafb;
+    color: #555;
+    cursor: not-allowed;
+}
+
+/* Focus */
+.admin-content input:focus,
+.admin-content textarea:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Textarea */
+.admin-content textarea {
+    resize: none;
+}
+
+/* ===== Submit Button (Same Admin Theme) ===== */
+
+.admin-content button {
+    margin-top: 28px;
+    padding: 12px 28px;
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.admin-content button:hover {
+    background: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+
 </style>
 {% endblock css %}
 
@@ -279,7 +371,7 @@
         {% if add_employee %}
         <h2>Add Employee</h2><br>
 
-        <form action="{% url " save_employee" %}" method="POST">
+        <form action="{% url "save_employee" %}" method="POST">
             {% csrf_token %}
 
             <label>Employee ID</label><br>
@@ -437,9 +529,9 @@
                             {% if q.admin_reply %}
                             <span style="color:green;">Answered</span>
                             {% else %}
-                            <a href="#" class="btn-submit">
-                                <button> Answer Now </button>
-                            </a>
+                            <a href="{% url 'reply_query' q.id %}">
+                                <button>Answer Now</button>
+                        </a>
                             {% endif %}
                         </td>
                     </tr>
@@ -455,36 +547,37 @@
             </table>
         </div>
 
+        
         {% elif reply_form %}
 
-        <div class="admin-content">
-            <h1>Reply to Employee Query</h1>
+            <div class="admin-content">
+                <h1>Reply to Employee Query</h1>
 
-            <form method="POST">
-                {% csrf_token %}
+                <form action="" method="POST">
+                    {% csrf_token %}
 
-                <label>Name</label>
-                <input type="text" value="{{ q.name }}" readonly>
+                    <label>Name</label>
+                    <input type="text" value="{{ q.name }}" readonly>
 
-                <label>Email</label>
-                <input type="email" value="{{ q.email }}" readonly>
+                    <label>Email</label>
+                    <input type="email" value="{{ q.email }}" readonly>
 
-                <label>Department</label>
-                <input type="text" value="{{ q.department }}" readonly>
+                    <label>Department</label>
+                    <input type="text" value="{{ q.department }}" readonly>
 
-                <label>Query</label>
-                <textarea rows="4" readonly>"{{ q.query }}" </textarea>
+                    <label>Query</label>
+                    <textarea name="query" rows="4" readonly>{{ q.query }}</textarea>
 
-                <label>Status</label>
-                <input type="text" value="{{ q.status }}" readonly>
+                    <label>Status</label>
+                    <input type="text" value="{{ q.status }}" readonly>
 
-                <label>Admin Reply</label>
-                <textarea name="admin_reply" rows="4" required></textarea>
+                    <label>Admin Reply</label>
+                    <textarea name="admin_reply" rows="4" required></textarea>
 
-                <br><br>
-                <button type="submit">Submit Reply</button>
-            </form>
-        </div>
+                    <br><br>
+                    <button type="submit">Submit Reply</button>
+                </form>
+            </div> 
 
         {% endif %}
 

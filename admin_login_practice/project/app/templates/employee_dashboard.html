@@ -1,4 +1,723 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Employee{% endblock title %}
+{% block title %}Employee Dashboard{% endblock title %}
+
+{% block css %}
+<style>
+    .emp-wrapper {
+        display: flex;
+        min-height: 100vh;
+        background: #f4f6f8;
+    }
+
+    .emp-sidebar {
+        width: 240px;
+        background: #0f172a;
+        padding: 20px;
+        color: white;
+    }
+
+    .emp-sidebar h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .emp-sidebar a {
+        display: block;
+        color: #cbd5e1;
+        padding: 12px;
+        text-decoration: none;
+        border-radius: 6px;
+        margin-bottom: 10px;
+    }
+
+    .emp-sidebar a:hover {
+        background: #1e293b;
+        color: white;
+    }
+
+    /* ===== Main Content Area ===== */
+
+    .emp-content {
+        flex: 1;
+        padding: 45px;
+        background: #f9fafb;
+    }
+
+    .emp-content h1 {
+        font-size: 26px;
+        font-weight: 600;
+        color: #111;
+    }
+
+    .emp-content p {
+        color: #555;
+        margin-top: 6px;
+    }
+
+    /* ===== Cards Grid ===== */
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 26px;
+        margin-top: 35px;
+    }
+
+    /* ===== Card Design ===== */
+
+    .card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 26px 24px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        transition: all 0.25s ease;
+        position: relative;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Card Heading */
+    .card h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #111;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+    }
+
+    /* Card Text */
+    .card p {
+        font-size: 20px;
+        font-weight: 700;
+        color: #000;
+        margin: 14px 0 20px;
+    }
+
+    /* Card Button */
+    .card a {
+        display: inline-block;
+        padding: 10px 18px;
+        border: 1px solid #000;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+        transition: all 0.25s ease;
+    }
+
+    .card a:hover {
+        background: #000;
+        color: #fff;
+    }
+
+    /* ===== Raise Query Form ===== */
+
+    .query-form {
+        max-width: 520px;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 34px;
+        margin-top: 30px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 18px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #111;
+        margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid #d1d5db;
+        font-size: 14px;
+        outline: none;
+        transition: all 0.25s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #000;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-group textarea {
+        resize: none;
+    }
+
+    /* ---------- Submit Button ---------- */
+
+    .btn-submit {
+        margin-top: 12px;
+        padding: 12px 22px;
+        background: #0f172a;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+
+    .btn-submit:hover {
+        background: #dae5ff;
+        color: black;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ======================================
+   QUERY TABLE – FINAL MASTER CSS
+====================================== */
+
+    .query-table {
+        width: 100%;
+        margin-top: 30px;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+    }
+
+    /* ===============================
+   TABLE HEAD
+================================ */
+
+    .query-table th {
+        background: linear-gradient(135deg, #020617, #0f172a);
+        color: #ffffff;
+        padding: 16px 18px;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        text-align: center !important;
+        vertical-align: middle !important;
+        white-space: nowrap;
+    }
+
+    /* ===============================
+   TABLE BODY
+================================ */
+
+    .query-table td {
+        padding: 15px 18px;
+        font-size: 14px;
+        color: #111827;
+        border-bottom: 1px solid #e5e7eb;
+        vertical-align: middle;
+    }
+
+    /* Query text readable */
+    .query-table td:nth-child(3) {
+        text-align: left;
+    }
+
+    /* All other columns centered */
+    .query-table td:not(:nth-child(3)) {
+        text-align: center;
+    }
+
+    /* Remove last row border */
+    .query-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* ===============================
+   ROW HOVER EFFECT
+================================ */
+
+    .query-table tr {
+        transition: background 0.25s ease;
+    }
+
+    .query-table tr:hover {
+        background: #f8fafc;
+    }
+
+    /* ===============================
+   STATUS COLOR LOGIC (CSS ONLY)
+================================ */
+
+    /* RESOLVED / SOLVED → GREEN */
+    .query-table tr:has(td:nth-child(4):is(:contains("Resolved"), :contains("Solved"))) td:nth-child(4) {
+        color: #16a34a !important;
+        font-weight: 700;
+    }
+
+    /* PENDING → RED */
+    .query-table tr:has(td:nth-child(4):contains("Pending")) td:nth-child(4) {
+        color: #dc2626 !important;
+        font-weight: 700;
+    }
+
+    /* ===============================
+   ACTION BUTTONS
+================================ */
+
+    .btn-edit,
+    .btn-delete {
+        padding: 8px 18px;
+        border-radius: 8px;
+        border: none;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+
+    /* EDIT BUTTON */
+    .btn-edit {
+        background: #2563eb;
+        color: #ffffff;
+    }
+
+    .btn-edit:hover {
+        background: #1e40af;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    /* DELETE BUTTON */
+    .btn-delete {
+        background: #dc2626;
+        color: #ffffff;
+    }
+
+    .btn-delete:hover {
+        background: #991b1b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(220, 38, 38, 0.35);
+    }
+
+    /* ===============================
+   EMPTY STATE
+================================ */
+
+    .query-table td[colspan] {
+        padding: 20px;
+        text-align: center;
+        font-style: italic;
+        color: #6b7280;
+    }
+
+    /* ======================================
+   QUERY FORM (RAISE / EDIT)
+====================================== */
+
+    .query-form {
+        max-width: 680px;
+        margin-top: 30px;
+        background: #ffffff;
+        padding: 35px 40px;
+        border-radius: 18px;
+        box-shadow: 0 16px 38px rgba(0, 0, 0, 0.12);
+    }
+
+    /* ---------- FORM GROUP ---------- */
+    .form-group {
+        margin-bottom: 22px;
+    }
+
+    /* ---------- LABEL ---------- */
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #020617;
+        letter-spacing: 0.4px;
+    }
+
+    /* ---------- INPUT & TEXTAREA ---------- */
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 14px;
+        border-radius: 10px;
+        border: 1.8px solid #e5e7eb;
+        outline: none;
+        transition: all 0.25s ease;
+        background: #f9fafb;
+        color: #020617;
+    }
+
+    /* ---------- READONLY ---------- */
+    .form-group input[readonly] {
+        background: #f1f5f9;
+        color: #475569;
+        cursor: not-allowed;
+    }
+
+    /* ---------- TEXTAREA ---------- */
+    .form-group textarea {
+        resize: none;
+        min-height: 130px;
+    }
+
+    /* ---------- FOCUS EFFECT ---------- */
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #2563eb;
+        background: #ffffff;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    /* ---------- SUBMIT BUTTON ---------- */
+    .btn-submit {
+        width: 100%;
+        margin-top: 10px;
+        padding: 14px 0;
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        letter-spacing: 0.6px;
+        transition: all 0.3s ease;
+    }
+
+    /* ---------- BUTTON HOVER ---------- */
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(37, 99, 235, 0.4);
+    }
+
+    /* ---------- BUTTON ACTIVE ---------- */
+    .btn-submit:active {
+        transform: translateY(0);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+    }
+
+    /* ---------- FORM TITLE ---------- */
+    .emp-content h1 {
+        font-size: 26px;
+        font-weight: 800;
+        color: #020617;
+        letter-spacing: 0.6px;
+        margin-bottom: 10px;
+    }
+
+    /* ---------- SUBTLE ANIMATION ---------- */
+    .query-form {
+        animation: fadeUp 0.45s ease;
+    }
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(14px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<div class="emp-wrapper">
+
+    <!-- Sidebar -->
+    <div class="emp-sidebar">
+        <h2>Employee</h2>
+
+        <a href="{% url 'employee_dashboard' %}" class="menu-item">
+            <i class="fa-solid fa-building"></i> Dashboard
+        </a>
+        <a href="{% url 'Queries' %}" class="menu-item">
+            <i class="fa-solid fa-building"></i> Queries
+        </a>
+        <a href="{% url 'logout' %}" class="menu-item">
+            <i class="fa-solid fa-building"></i> Logout
+        </a>
+
+    </div>
+
+    <!-- Main Content -->
+
+    {% if employee_dashboard %}
+
+    <div class="emp-content">
+
+        <h1>Welcome, {{ employee.name }}</h1>
+        <p>You are logged in as employee.</p>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Employee ID</h3>
+                <p>{{ employee.employee_id }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Email</h3>
+                <p>{{ employee.email }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Department</h3>
+                <p>{{ employee.department }}</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% elif Queries %}
+
+    <div class="emp-content">
+
+        <h1>Queries Panel</h1>
+        <p>Manage your queries from here.</p>
+
+        <div class="cards">
+
+            <!-- Raise Query -->
+            <div class="card">
+                <h3>Raise Query</h3>
+                <p>Create New</p>
+                <a href="{% url 'raise_query' %}">Open</a>
+            </div>
+
+            <!-- Solved Queries -->
+            <div class="card">
+                <h3>Solved Queries</h3>
+                <p>View</p>
+                <a href="{% url 'solved_queries' %}">View</a>
+            </div>
+
+            <!-- Pending Queries -->
+            <div class="card">
+                <h3>Pending Queries</h3>
+                <p>View</p>
+                <a href="{% url 'pending_queries' %}">View</a>
+            </div>
+
+            <!-- Total Queries -->
+            <div class="card">
+                <h3>Total Queries</h3>
+                <p>All</p>
+                <a href="{% url 'total_queries' %}">View</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% elif raise_query %}
+
+    <!-- RAISE QUERY FORM -->
+    <div class="emp-content">
+        <h1>Raise Query</h1>
+
+        <form class="query-form" action="{% url "save_query" %}" method="post">
+            {% csrf_token %}
+
+            <!-- Name -->
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" value="{{employee_data.name}}" readonly>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" value="{{employee_data.email}}" readonly>
+            </div>
+
+            <!-- Department -->
+            <div class="form-group">
+                <label>Department</label>
+                <input type="text" name="department" value="{{employee_data.department}}" readonly>
+            </div>
+
+            <!-- Query Description -->
+            <div class="form-group">
+                <label>Query</label>
+                <textarea name="query" rows="5" placeholder="Describe your issue clearly"></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn-submit">Submit Query</button>
+        </form>
+    </div>
+
+    {% elif total_queries %}
+
+    <div class="emp-content">
+        <h1>Total Queries</h1>
+
+        <table class="query-table">
+            <tr>
+                <th>ID</th>
+                <th>Employee email</th>
+                <th>Query</th>
+                <th>Status</th>
+                <th>Admin Reply</th>
+            </tr>
+
+            {% for q in employee_queries %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ q.email }}</td>
+                <td>{{ q.query }}</td>
+                <td>{{ q.status }}</td>
+                <td>
+                    {% if q.admin_reply %}
+                    {{ q.admin_reply }}
+                    {% else %}
+                    <em>Not replied yet</em>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No queries found</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% elif solved_queries %}
+
+    <div class="emp-content">
+        <h1>Solved Queries</h1>
+
+        <table class="query-table">
+            <tr>
+                <th>ID</th>
+                <th>Query</th>
+                <th>Status</th>
+                <th>Admin Reply</th>
+            </tr>
+
+            {% for q in employee_queries %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ q.query }}</td>
+                <td style="color: #16a34a;">{{ q.status }}</td>
+                <td>{{ q.admin_reply|default:"—" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No solved queries found</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% elif pending_queries %}
+
+    <div class="emp-content">
+        <h1>Pending Queries</h1>
+
+        <table class="query-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Email</th>
+                    <th>Query</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for q in employee_queries %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ q.email }}</td>
+                    <td>{{ q.query }}</td>
+                    <td style="color: red;">{{ q.status }}</td>
+
+                    <td>
+                        <a href={% url 'edit_query' q.id %}>
+                            <button class="btn-edit">Edit</button>
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href={% url 'delete_query' q.id %}>
+                            <button class="btn-delete">Delete</button>
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" style="text-align:center;">No pending queries</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% elif edit_queryform %}
+
+    <div class="emp-content">
+        <h1>Edit Query</h1>
+
+        <form class="query-form" action="{% url 'update_query' q.id %}" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" value="{{ q.name }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" value="{{ q.email }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Department</label>
+                <input type="text" name="department" value="{{ q.department }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Query</label>
+                <textarea name="query" rows="5">{{ q.query }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Status</label>
+                <input style="color: red;" type="text" value="{{ q.status }}" readonly>
+            </div>
+
+            <button type="submit" class="btn-submit">Update Query</button>
+        </form>
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock content %}

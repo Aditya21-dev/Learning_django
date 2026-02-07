@@ -28,6 +28,8 @@ urlpatterns = [
     path('dashboard/',views.dashboard,name='dashboard'),
     path('logout/',views.logout,name='logout'),
 
+    
+
     # ADMIN -------------------------- #
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('add_department/', views.add_department, name='add_department'),
@@ -39,8 +41,12 @@ urlpatterns = [
     path('show_employees/', views.show_employees, name='show_employees'),
     path('show_queries/', views.show_queries, name='show_queries'),
 
+    path('reply_query/<int:q_id>/', views.reply_quer, name='reply_query'),
 
 
+
+
+    # EMPLOYEE -------------------------- #
     path('employee_dashboard/', views.employee_dashboard, name='employee_dashboard'),
 
     path('Queries/', views.Queries, name='Queries'),
@@ -49,7 +55,9 @@ urlpatterns = [
     path('Queries/solved/', views.solved_queries, name='solved_queries'),
     path('Queries/pending/', views.pending_queries, name='pending_queries'),
 
-    path('save_query/', views.save_query, name='save_query')
-
+    path('save_query/', views.save_query, name='save_query'),
+    path('edit_query/<int:q_id>', views.edit_query, name='edit_query'),
+    path("update-query/<int:q_id>/", views.update_query, name="update_query"),
+    path('delete_query/<int:q_id>', views.delete_query, name='delete_query'),
     
 ]

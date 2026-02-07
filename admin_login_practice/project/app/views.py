@@ -132,8 +132,15 @@ def dashboard(req):
     
 
 def logout(req):
-
     if 'user_id' in req.session:
+        req.session.flush()
+        return redirect('login')
+    
+    if 'employee_email' in req.session:
+        req.session.flush()
+        return redirect('login')
+    
+    if 'admin_email' in req.session:
         req.session.flush()
         return redirect('login')
     else:
@@ -159,7 +166,7 @@ def admin_dashboard(req):
         # TEMPORARY COUNTS (dummy numbers)
         total_employees = Employee.objects.count()
         total_departments = Department.objects.count()
-        total_queries = 20
+        total_queries = Query.objects.count()
         pending_queries = 5
 
         return render(req, 'admin_dashboard.html', {
@@ -253,6 +260,7 @@ def save_employee(req):
             )
             req.session['employee_password']=employee_id
             req.session['employee_email']=email
+            req.session['employee_name']=name
 
             subject = "Employee Account Created"
             message = f"""
@@ -303,6 +311,25 @@ def show_queries(req):
         "data": get_admin_data(req)
     })
 
+def reply_quer(req,q_id):
+    query = Query.objects.get(id = q_id)
+
+    if req.method == 'POST':
+        admin_reply = req.POST.get("admin_reply")
+        query.admin_reply = admin_reply
+        query.status = "Resolved"
+        query.save()
+        return redirect("show_queries")
+    
+    return render(req, "admin_dashboard.html", {
+        "reply_form": True,
+        "q": query,
+        "data": get_admin_data(req)
+    })
+
+
+
+
 
 
 
@@ -317,27 +344,31 @@ def employee_dashboard(req):
     email = req.session.get('employee_email')
     if not email:
         return redirect('login')
+    a_data = {"name": req.session.get('employee_name')}
     employee = Employee.objects.filter(email=email).first()
+
     return render(req, 'employee_dashboard.html', { 
         "employee_dashboard":True,
-        'employee': employee
+        'employee': employee,
+        'data':a_data,
     })
-
 
 
 def Queries(req):
-    return render(req,'employee_dashboard.html',{"Queries":True})
+    a_data = {"name": req.session.get('employee_name')}
+    return render(req,'employee_dashboard.html',{"Queries":True,'data':a_data,})
 
 def raise_query(req):
     email = req.session.get('employee_email')
+    
     employee_data = Employee.objects.filter(email=email).first()
-
+    a_data = {"name": req.session.get('employee_name')}
     if employee_data:
         return render(req, 'employee_dashboard.html', {
             "raise_query": True,
-            "employee_data":employee_data
+            "employee_data":employee_data,
+            'data':a_data,
     })
-
 
 
 def save_query(req):
@@ -360,22 +391,50 @@ def save_query(req):
 def total_queries(req):
     email = req.session.get('employee_email')
     employee_queries = Query.objects.filter(email=email)
+    a_data = {"name": req.session.get('employee_name')}
     return render(req, 'employee_dashboard.html', {
         "total_queries": True,
-        "employee_queries":employee_queries
+        "employee_queries":employee_queries,
+        'data':a_data,
     })
 
 def solved_queries(req):
     email = req.session.get('employee_email')
-    employee_queries = Query.objects.filter(email=email,status="resolved")
+    employee_queries = Query.objects.filter(email=email,status="Resolved")
+    a_data = {"name": req.session.get('employee_name')}
     return render(req, 'employee_dashboard.html', {
         "solved_queries": True,
-        "employee_queries":employee_queries
+        "employee_queries":employee_queries,
+        'data':a_data,
     })
+
 def pending_queries(req):
     email = req.session.get('employee_email')
     employee_queries = Query.objects.filter(email=email,status="Pending")
+    a_data = {"name": req.session.get('employee_name')}
     return render(req, 'employee_dashboard.html', {
         "pending_queries": True,
-        "employee_queries":employee_queries
+        "employee_queries":employee_queries,
+        'data':a_data,
     })
+
+def edit_query(req,q_id):
+    query = Query.objects.get(id = q_id)
+    a_data = {"name": req.session.get('employee_name')}
+    return render(req, "employee_dashboard.html", {
+        "edit_queryform": True,
+        "q": query,
+        'data':a_data,
+    })
+
+def update_query(req,q_id):
+    if req.method == "POST":
+        query = Query.objects.get(id = q_id)
+        query.query = req.POST.get('query')
+        query.save()
+        return redirect('pending_queries')
+
+def delete_query(req,q_id):
+    query = Query.objects.get(id=q_id)
+    query.delete()
+    return redirect("pending_queries")
