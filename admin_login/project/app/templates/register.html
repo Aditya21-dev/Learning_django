@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <section class="register-section">
+        <div class="register-box">
+            <h2>Create Account</h2>
+
+            <form method="post">
+                {% csrf_token %}
+
+                {{x}}
+
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" name="name" placeholder="Enter username" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Enter email" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Contact</label>
+                    <input type="tel" name="contact" placeholder="Enter contact number" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" name="password_1" placeholder="Enter password" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <input type="password" name="password_2" placeholder="Confirm password" required>
+                </div>
+
+                <button type="submit" class="register-btn">Register</button>
+            </form>
+        </div>
+    </section>
+
+</body>
+
+</html>
