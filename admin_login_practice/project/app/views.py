@@ -3,6 +3,7 @@ from .models import User, Department , Employee , Query
 from .models import Employee, Department
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.views.decorator_cs.cache import never_cache
 # Create your views here.
 
 def home(req):
@@ -130,7 +131,7 @@ def dashboard(req):
     else:
         return redirect('login')
     
-
+@never_cache
 def logout(req):
     if 'user_id' in req.session:
         req.session.flush()
@@ -155,6 +156,7 @@ def logout(req):
 
 # ======================= ADMIN ============================================================ #
 
+@never_cache
 def admin_dashboard(req):
     if 'admin_email' in req.session and 'admin_password' in req.session:
         a_data = {
@@ -340,6 +342,7 @@ def reply_quer(req,q_id):
 
 # ===================== EMPLOYEE DASHBOARD =================== #
 
+@never_cache
 def employee_dashboard(req):
     email = req.session.get('employee_email')
     if not email:
