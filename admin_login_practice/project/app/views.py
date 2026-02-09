@@ -3,7 +3,7 @@ from .models import User, Department , Employee , Query
 from .models import Employee, Department
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.views.decorator_cs.cache import never_cache
+from django.views.decorators.cache import never_cache
 # Create your views here.
 
 def home(req):
@@ -96,6 +96,7 @@ def login(req):
         employee = Employee.objects.filter(email=e, employee_id=p).first()
         if employee:
             req.session['employee_email'] = employee.email
+            req.session['employee_name'] = employee.name
             return redirect('employee_dashboard')
         
         else:
@@ -347,13 +348,13 @@ def employee_dashboard(req):
     email = req.session.get('employee_email')
     if not email:
         return redirect('login')
-    a_data = {"name": req.session.get('employee_name')}
+    a_data = req.session.get('employee_name')
     employee = Employee.objects.filter(email=email).first()
 
     return render(req, 'employee_dashboard.html', { 
         "employee_dashboard":True,
         'employee': employee,
-        'data':a_data,
+        'data':{'name':a_data}
     })
 
 
