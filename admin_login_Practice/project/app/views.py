@@ -117,7 +117,19 @@ def dashboard(req):
             "password" : a_password,
 
         }
-        return render(req,'admin_dashboard.html',{'data':a_data})
+        total_employees = Employee.objects.count()
+        total_departments = Department.objects.count()
+        total_queries = Query.objects.count()
+        pending_queries = Query.objects.filter(status='Pending').count()
+
+        return render(req, 'admin_dashboard.html', {
+            'data': a_data,
+            'admin_dashboard': True,
+            'total_employees': total_employees,
+            'total_departments': total_departments,
+            'total_queries': total_queries,
+            'pending_queries': pending_queries,
+        })
     
     if 'user_id' in req.session:
         id = req.session['user_id']
@@ -155,6 +167,11 @@ def logout(req):
 
 
 
+
+
+
+
+
 # ======================= ADMIN ============================================================ #
 
 @never_cache
@@ -170,7 +187,7 @@ def admin_dashboard(req):
         total_employees = Employee.objects.count()
         total_departments = Department.objects.count()
         total_queries = Query.objects.count()
-        pending_queries = 5
+        pending_queries = Query.objects.filter(status='Pending').count()
 
         return render(req, 'admin_dashboard.html', {
             'data': a_data,
@@ -329,6 +346,8 @@ def reply_quer(req,q_id):
         "q": query,
         "data": get_admin_data(req)
     })
+
+
 
 
 
