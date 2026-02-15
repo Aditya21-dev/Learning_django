@@ -8,7 +8,7 @@ class Aadhaar(models.Model):
 
     def __str__(self):
         return self.aadhaar_number
-
+ 
 
 class Student(models.Model):
     name = models.CharField(max_length=100)
