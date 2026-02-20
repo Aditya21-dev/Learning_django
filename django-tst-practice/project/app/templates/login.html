@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+    .login-container {
+        width: 400px;
+        margin: 80px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .login-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #2c3e50;
+    }
+
+    .login-container label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+        color: #34495e;
+    }
+
+    .login-container input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 18px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        transition: 0.3s;
+    }
+
+    .login-container input:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #2c3e50;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .login-btn:hover {
+        background-color: #34495e;
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+{% if login %}
+<div class="login-container">
+    <h2>Login</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button type="submit" class="login-btn">Login</button>
+        
+        <br> 
+        <br>
+    </form>
+    <a href="{% url 'forgot_password' %}" class="login-btn" style="text-decoration:none; display:block; text-align:center;">
+    Forgot Password
+</a>
+</div>
+{% endif %}
+
+
+{% if forgot_password %}
+<div class="login-container">
+    <h2>forgot Password</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <button type="submit" class="login-btn"> <a href="{% url " check_email" %}"></a> Check Email </button>
+    </form>
+</div>
+
+{% elif Confirm_OTP %}
+<div class="login-container">
+    <h2>OTP</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>OTP</label>
+        <input type="email" name="enterd_otp" required>
+
+        <button type="submit" class="login-btn"> <a href="{% url " check_OTP" %}"></a> Check OTP </button>
+    </form>
+</div>
+
+{% elif Reset_Password %}
+<div class="login-container">
+    <h2>Password</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>New Password</label>
+        <input type="password" name="New_Password" required>
+        <br><br>
+        <label>conform Password</label>
+        <input type="password" name="Conform_Password" required>
+
+        <button type="submit" class="login-btn"> <a href="{% url " New_Password" %}"></a> Conform </button>
+    </form>
+</div>
+
+{% endif %}
+
+{% endblock %} 

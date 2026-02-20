@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} base {% endblock %}</title>
-        <style>
-        /* ===== RESET ===== */
+    <style>
+        /* ====== RESET (optional but clean) ====== */
         * {
             margin: 0;
             padding: 0;
@@ -13,18 +13,20 @@
             font-family: Arial, sans-serif;
         }
 
-        /* ===== NAVBAR ===== */
+        /* ====== NAVBAR ====== */
         .navbar {
-            background-color: #0d1b2a;
-            color: white;
+            background: #111;
+            color: #fff;
             padding: 15px 40px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 999;
         }
 
         .logo {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
         }
 
@@ -34,28 +36,101 @@
             gap: 25px;
         }
 
-        .nav-links a {
+        .nav-links li a {
             text-decoration: none;
-            color: white;
-            transition: 0.3s ease;
+            color: #ccc;
+            font-size: 15px;
+            transition: color 0.3s ease;
         }
 
-        .nav-links a:hover {
-            color: #00b4d8;
+        .nav-links li a:hover {
+            color: #fff;
         }
 
-        /* ===== MAIN CONTENT ===== */
-        .content {
-            padding: 50px;
-            min-height: 70vh;
+        .auth-buttons a {
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 14px;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
 
-        /* ===== FOOTER ===== */
+        .auth-buttons .login {
+            color: #ccc;
+        }
+
+        .auth-buttons .login:hover {
+            color: #fff;
+        }
+
+        .auth-buttons .register {
+            background: #fff;
+            color: #111;
+        }
+
+        .auth-buttons .register:hover {
+            background: #ddd;
+        }
+
+        /* ====== FOOTER ====== */
         .footer {
-            background-color: #0d1b2a;
-            color: white;
+            background-color: #111;
+            color: #ddd;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            color: #fff;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #bbb;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section ul li a {
+            text-decoration: none;
+            color: #bbb;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
             text-align: center;
-            padding: 15px;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #222;
+            font-size: 13px;
+            color: #888;
         }
     </style>
 
@@ -69,27 +144,72 @@
 
 <body>
 
-    <!-- ===== NAVBAR ===== -->
     <nav class="navbar">
-        <div class="logo">MyWebsite</div>
+        <div class="logo">
+            MyWebsite
+        </div>
+
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
         </ul>
+
+        <div class="auth-buttons">
+            Welcome {{ user_details.name|default:"Guest" }}
+            {% if not user_details %}
+                <a href="{% url 'login' %}" class="login">Login</a>
+                <a href="{% url 'register' %}" class="register">Register</a>
+            {% else %}
+                <a href="{% url 'logout' %}"> logout </a>
+            {% endif %}
+
+        </div>
     </nav>
 
 
     {% block content %}
-    
+
+
     {% endblock content %}
 
 
-    <!-- ===== FOOTER ===== -->
     <footer class="footer">
-        <p>© 2026 MyWebsite | All Rights Reserved</p>
+        <div class="footer-container">
+
+            <div class="footer-section">
+                <h3>MyWebsite</h3>
+                <p>
+                    Creating simple, elegant and meaningful digital experiences.
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 MyWebsite. All rights reserved.
+        </div>
     </footer>
+
 
 </body>
 

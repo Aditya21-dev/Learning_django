@@ -8,6 +8,7 @@ class User(models.Model):
     age = models.IntegerField()
     email = models.EmailField()
     phone = models.CharField(max_length=10)
+    password = models.CharField(unique=True)
     resume = models.FileField(upload_to='resumes/')
 
     def clean(self):
@@ -31,6 +32,10 @@ class User(models.Model):
         if not re.match(r'^[6-9]\d{9}$', self.phone):
             errors['phone'] = "Enter a valid Indian mobile number"
 
+         # Password validation - at least 1 number
+        if not any(char.isdigit() for char in self.password):
+            errors['password'] = "Password must contain at least one number"
+            
         # Resume validation
         if self.resume:
             if not self.resume.name.endswith(('.pdf', '.docx')):
@@ -45,3 +50,7 @@ class User(models.Model):
     def save(self, *args, **kwargs):
         self.full_clean()   # ensures validation runs even on objects.create()
         super().save(*args, **kwargs)
+
+
+class Task(models.Model):
+    task = models.CharField()
