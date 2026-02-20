@@ -46,12 +46,7 @@ def login(req):
             return render("login",{"login",True})
             
     return render(req, "login.html", {"form": form , "login":True})
-            
-
-def dashboard(req):
-    user_details = User.objects.get(id=req.session.get("user_id"))
-    return render(req, "dashboard.html", {"user_details": user_details})
-
+           
 
 def logout(req):
     req.session.flush()
@@ -62,8 +57,15 @@ def forgot_password(req):
     return render(req,"login.html",{"forgot_password":True})
 
 def check_email(req):
-    # method
-    pass
+    if req.method == 'POST':
+        enterd_email = req.POST.get("email")
+        verify_email = User.objects.filter(email = enterd_email)
+
+        if verify_email:
+            user_email = User.objects.get(email = verify_email)
+            
+    return render(req,"login.html",{"check_email":True})
+
 
 def check_OTP(req):
     pass
@@ -71,6 +73,18 @@ def check_OTP(req):
 def New_Password(req):
     pass
 
+
+
+
+
+
+
+def dashboard(req):
+    task_d = Task.objects.all()
+    return render(req, "dashboard.html", {
+        "task_list": True,
+        "task_d": task_d
+    })
 
 def add_task(req):
     if req.method == 'POST':
@@ -80,3 +94,28 @@ def add_task(req):
         print(task_d)
         return render(req,"dashboard.html",{"task_list":True ,"task_d":task_d})
     return redirect("dasboard")
+
+def delete_task(req,id):
+    task = Task.objects.get(id = id)
+    task.delete()
+    return redirect("dashboard")
+
+
+def edit_task(req, id):
+    task_d = Task.objects.all()   # saari list
+    edit_task_obj = Task.objects.get(id=id)  # sirf wo ek task
+
+    return render(req, "dashboard.html", {
+        "task_list": True,
+        "task_d": task_d,
+        "edit_task_obj": edit_task_obj
+    })
+
+def update_task(req, id):
+    task = Task.objects.get(id=id)
+
+    if req.method == "POST":
+        task.task = req.POST.get("task")
+        task.save()
+
+    return redirect("dashboard")
