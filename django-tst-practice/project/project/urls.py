@@ -33,7 +33,10 @@ urlpatterns = [
     path("New_Password/", views.New_Password,name="New_Password"),
 
 
-    path("add_task/", views.add_task,name="add_task")
+    path("add_task/", views.add_task,name="add_task"),
+    path("delete_task/<int:id>", views.delete_task,name="delete_task"),
+    path("edit_task/<int:id>", views.edit_task,name="edit_task"),
+    path("update_task/<int:id>", views.update_task,name="update_task"),
 
 
 ]
