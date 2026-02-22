@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import User
+from .models import User , Todo
 from django.contrib import messages
 # Create your views here.
 
@@ -47,8 +47,6 @@ def logout(req):
     return redirect("login")
 
 
-
-
 def dashboard(req):
     user_details = {
     "user_name" : req.session.get("user_name"),
@@ -57,4 +55,22 @@ def dashboard(req):
     return render(req,"dashboard.html",{"dashboard_content":True,"user_detail":user_details})
 
 def todo_list(req):
-    return render(req,"dashboard.html",{"todo_list":True})
+    task_detail = Todo.objects.all()
+    return render(req,"dashboard.html",{"todo_list":True , "task_detail":task_detail})
+
+def add_task(req):
+    if req.method == 'POST':
+        task = req.POST.get("task")
+        task_exist = Todo.objects.filter(task = task).first()
+
+        if task_exist:
+            messages.error(req, "Task already exists")
+            return redirect("todo_list")
+        else:
+            Todo.objects.create(task = task)
+            messages.success(req, "Task Added succesfull..!")
+            return redirect("todo_list")
+        
+    messages.warning("Not empty task can't be listed !")
+    return redirect("todo_list")
+            

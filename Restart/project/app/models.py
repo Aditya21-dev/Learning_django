@@ -6,3 +6,7 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=15)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Todo(models.Model):
+    task = models.CharField()
+    
