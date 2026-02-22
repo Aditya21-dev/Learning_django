@@ -291,25 +291,51 @@
     {% endif %}
 
     {% if todo_list %}
-        <!-- Add Task Form -->
-        <form action="{% url 'add_task' %}" method="post">
-            {% csrf_token %}
-            <div style="display:flex; gap:12px; max-width:700px; margin-bottom:40px;">
-                <input type="text" name="task" placeholder="Enter new task..." required class="task-input">
-                <button type="submit" class="btn-add-task">Add Task</button>
-            </div>
-        </form>
-
-        <!-- Task List -->
-        <div class="todo-list">
-            {% for task_details in task_detail %}
-                <div class="todo-item">
-                    <span class="task-text">{{ task_details.task }}</span>
-                </div>
-            {% endfor %}
+    <!-- Add Task Form -->
+    <form action="{% url 'add_task' %}" method="post">
+        {% csrf_token %}
+        <div style="display:flex; gap:12px; max-width:700px; margin-bottom:40px;">
+            <input type="text" name="task" placeholder="Enter new task..." required class="task-input">
+            <button type="submit" class="btn-add-task">Add Task</button>
         </div>
-    {% endif %}
+    </form>
 
+    <!-- Task List -->
+    <div class="todo-list">
+    {% for task_details in task_detail %}
+        <div class="todo-item">
+
+            {% if edit_task_obj and edit_task_obj.id == task_details.id %}
+
+                <!-- Editable Mode -->
+                <form action="{% url 'update_task' task_details.id %}" method="post" style="display:flex; gap:10px; width:100%;">
+                    {% csrf_token %}
+                    <input type="text" name="task" value="{{ task_details.task }}" class="task-input">
+                    <button type="submit" class="btn-edit">Update</button>
+                </form>
+
+            {% else %}
+
+                <!-- Normal Mode -->
+                <span class="task-text">{{ task_details.task }}</span>
+
+                <div class="todo-actions">
+                    <a href="{% url 'edit_task' task_details.id %}">
+                        <button type="button" class="btn-edit">Edit</button>
+                    </a>
+
+                    <form action="{% url 'delete_task' task_details.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-delete">Delete</button>
+                    </form>
+                </div>
+
+            {% endif %}
+
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
 </main>
 
 

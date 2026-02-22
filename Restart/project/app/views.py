@@ -74,3 +74,26 @@ def add_task(req):
     messages.warning("Not empty task can't be listed !")
     return redirect("todo_list")
             
+def delete_task(req,task_id):
+    deleted_task = Todo.objects.get(id = task_id)
+    deleted_task.delete()
+    return redirect("todo_list")
+
+def edit_task(req,task_id):
+    task = Todo.objects.get(id=task_id)
+    task_detail = Todo.objects.all()
+
+    return render(req, "dashboard.html", {
+        "todo_list": True,
+        "task_detail": task_detail,
+        "edit_task_obj": task
+    })
+
+def update_task(req, task_id):
+    if req.method == "POST":
+        task = Todo.objects.get(id=task_id)
+        task.task = req.POST.get("task")
+        task.save()
+        messages.success(req, "Task updated successfully.")
+
+    return redirect("todo_list")
