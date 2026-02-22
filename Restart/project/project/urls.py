@@ -27,4 +27,5 @@ urlpatterns = [
 
     path("dashboard/",views.dashboard,name="dashboard"),
     path("todo_list/",views.todo_list,name="todo_list"),
+    path("add_task/",views.add_task,name="add_task"),
 ]
