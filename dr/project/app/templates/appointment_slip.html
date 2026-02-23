@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} appointment_slip {% endblock title %} 
+
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+
+<h2>Appointment Slip</h2>
+
+{% if appointment_slip_detail %}
+    {% for appointment in appointment_slip_detail %}
+        <div style="border:1px solid #000; padding:15px; margin-bottom:20px; width:400px;">
+            <p><strong> Name:- </strong> {{ appointment.name }}</p>
+            <p><strong> Email:- </strong> {{ appointment.email }}</p>
+            <p><strong> Phone:- </strong> {{ appointment.phone }}</p>
+            <p><strong> Gender:- </strong> {{ appointment.gender }}</p>
+            <p><strong> Doctor:- </strong> {{ appointment.doctor }}</p>
+            <p><strong> Date:- </strong> {{ appointment.date }}</p>
+            <p><strong> Problem:- </strong> {{ appointment.problem }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p> no appointments founded </p>
+{% endif %}
+
+{% endblock content %}
