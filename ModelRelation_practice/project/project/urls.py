@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("",views.landing,name="landing"),
+    path("result/",views.result,name="result"),
+    path("forward_access/<int:id>/",views.forward_access,name="forward_access",),
+    path("backword_access/<int:id>/",views.backword_access,name="backword_access",)
 ]
