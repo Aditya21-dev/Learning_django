@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import Teacher , Department
+from .models import Teacher , Department , Order , Customer
 
 # Create your views here.
 
@@ -37,3 +37,25 @@ def backword_access(req,id):
     }
 
     return render(req, "result.html", {"context":context})
+
+
+
+def forward_access_om(req):
+    orders = Order.objects.select_related('customer').all()
+
+    data = []
+
+    for order in orders:
+        data.append({
+            "order_id": order.id,
+            "product": order.product_name,
+            "customer_name": order.customer.name,
+            "customer_email": order.customer.email,            
+        })
+    
+    return render(req,"result.html", {"om_data":data})
+
+def backword_access_om(req):
+    customers = Customer.objects.prefetch_related('orders')
+    return render(req, "result.html", {"customers": customers})
+

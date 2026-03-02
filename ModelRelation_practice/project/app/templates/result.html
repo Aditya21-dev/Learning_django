@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Teacher Details</title>
     <style>
@@ -16,7 +17,7 @@
             background: white;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
@@ -34,6 +35,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="container">
@@ -61,7 +63,7 @@
 
     </div>
 
-        <div class="container">
+    <div class="container">
         <h2>Department Details</h2>
 
         <div class="info">
@@ -83,14 +85,54 @@
             <h3>Teacher Assigned</h3>
 
             {% if context.teachers %}
-                <p><strong>Name:</strong> {{ context.teachers.name }}</p>
-                <p><strong>Subject:</strong> {{ context.teachers.subject }}</p>
+            <p><strong>Name:</strong> {{ context.teachers.name }}</p>
+            <p><strong>Subject:</strong> {{ context.teachers.subject }}</p>
             {% else %}
-                <p>No Teacher Assigned</p>
+            <p>No Teacher Assigned</p>
             {% endif %}
         </div>
 
     </div>
 
+    <div>
+        <h2>Order → Customer</h2>
+
+        <table border="1" cellpadding="8">
+            <tr>
+                <th>Order ID</th>
+                <th>Product</th>
+                <th>Customer Name</th>
+                <th>Customer Email</th>
+            </tr>
+
+            {% for item in om_data %}
+            <tr>
+                <td>{{ item.order_id }}</td>
+                <td>{{ item.product }}</td>
+                <td>{{ item.customer_name }}</td>
+                <td>{{ item.customer_email }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <br><br><br>
+
+        <h2>Customer → Orders</h2>
+
+        {% for customer in customers %}
+        <h3>{{ customer.name }} ({{ customer.email }})</h3>
+
+        <ul>
+            {% for order in customer.orders.all %}
+            <li>{{ order.product_name }} - ₹{{ order.price }}</li>
+            {% endfor %}
+        </ul>
+
+        <hr>
+        {% endfor %}
+    </div>
+
 </body>
+
 </html>
