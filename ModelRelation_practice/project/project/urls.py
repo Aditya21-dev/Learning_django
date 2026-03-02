@@ -23,5 +23,10 @@ urlpatterns = [
     path("",views.landing,name="landing"),
     path("result/",views.result,name="result"),
     path("forward_access/<int:id>/",views.forward_access,name="forward_access",),
-    path("backword_access/<int:id>/",views.backword_access,name="backword_access",)
+    path("backword_access/<int:id>/",views.backword_access,name="backword_access",),
+
+
+    path("forward_access_om/",views.forward_access_om,name="forward_access_om",),
+    path("backword_access_om/",views.backword_access_om,name="backword_access_om",),
+
 ]

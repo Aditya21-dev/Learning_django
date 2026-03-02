@@ -40,9 +40,24 @@
 
     <div class="container">
         <h1>Welcome to My Landing Page</h1>
+        <hr>
+        <br>
+        <h2> One - One </h2>
         <button class="btn"> <a href="{% url "forward_access" 2 %}">forward_access</a></button>
-        
         <button class="btn"> <a href="{% url "backword_access" 2 %}">backword_access</a></button>
+
+        <hr>
+        <br>
+        <h2> One - Many </h2>
+        <button class="btn"> <a href="{% url "forward_access_om"  %}">forward_access</a></button>
+        <button class="btn"> <a href="{% url "backword_access_om" %}">backword_access</a></button>
+
+        {% comment %} <hr>
+        <br>
+        <h2> Many - Many </h2>
+        <button class="btn"> <a href="{% url "forward_access_m" 2 %}">forward_access</a></button>
+        
+        <button class="btn"> <a href="{% url "backword_access_m" 2 %}">backword_access</a></button> {% endcomment %}
     </div>
 
 </body>
