@@ -120,6 +120,7 @@ STATIC_URL = 'static/'
 
 import cloudinary
 
+# cloudnery settings 
 cloudinary.config(
     cloud_name="dsqym7mul",
     api_key="357493311612761",
