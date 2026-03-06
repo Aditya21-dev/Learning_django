@@ -23,5 +23,8 @@ urlpatterns = [
     path("",views.landing,name="landing"),
     path("register/",views.register,name="register"),
     path("login/",views.login,name="login"),
+    
     path("verify_email/",views.verify_email,name="verify_email"),
+    path("verify_OTP/",views.verify_OTP,name="verify_OTP"),
+    path("new_password/",views.new_password,name="new_password"),
 ]
