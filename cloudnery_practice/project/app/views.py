@@ -11,7 +11,7 @@ def form(req):
         email = req.POST.get("email")
         img = req.FILES.get("img")
 
-        UserProfile.objects.create(name = name , email = email , image = img)
-
-        return render(req,"landin.html" , {"name":name , img})
+        user = UserProfile.objects.create(name = name , email = email , image = img)
+        return render(req,"landing.html" , {"user" : user})
+    
     return render(req,"form.html")
