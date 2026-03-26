@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Admin Dashboard</title>{% endblock title %}
+
+{% block css %}
+<style>
+.admin-container {
+    display: flex;
+    min-height: 94vh;
+}
+
+.sidebar {
+    width: 250px;
+    background: #111;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* MENU */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 15px 25px;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background: #ff4d4d;
+}
+
+/* LOGOUT */
+.logout {
+    padding: 15px 25px;
+    border-top: 1px solid #333;
+    cursor: pointer;
+}
+
+.logout:hover {
+    background: #ff4d4d;
+}
+
+/* MAIN */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    background: #f5f5f5;
+}
+
+/* HEADER */
+.dashboard-header h1 {
+    margin: 0;
+}
+
+.dashboard-header p {
+    color: #555;
+}
+
+/* CARDS */
+.cards {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1;
+    min-width: 200px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #ff4d4d;
+}
+
+.card p {
+    margin-top: 10px;
+    color: #666;
+}
+
+/* FORM */
+.form-container {
+    background: white;
+    padding: 30px;
+    margin-top: 40px;
+    border-radius: 12px;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.form-container button {
+    padding: 12px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background: #e63e3e;
+}
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<div class="admin-container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div>
+            <h2>Admin Panel</h2>
+            <ul>
+                <li><a href="?page=dashboard">Dashboard</a></li>
+                <li><a href="?page=add">Add Menu</a></li>
+                <li><a href="?page=show">Show All Menu</a></li>
+            </ul>
+        </div>
+
+        <div class="logout">
+            Logout
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-content">
+
+        {% if page == "dashboard" %}
+
+            <div class="dashboard-header">
+                <h1>Welcome Admin</h1>
+                <p>admin@gmail.com</p>
+            </div>
+
+            <div class="cards">
+                <div class="card">
+                    <h2>25</h2>
+                    <p>Total Menu Items</p>
+                </div>
+                <div class="card">
+                    <h2>15</h2>
+                    <p>Total Veg Items</p>
+                </div>
+                <div class="card">
+                    <h2>10</h2>
+                    <p>Total Non-Veg Items</p>
+                </div>
+            </div>
+
+        {% elif page == "add" %}
+
+            <div class="form-container">
+                <h2>Add New Food Item</h2>
+
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" name="name" placeholder="Enter Food Name" required>
+                    <input type="file" name="image" required>
+                    <input type="number" name="price" placeholder="Enter Price" required>
+                    <button type="submit">Add Item</button>
+                </form>
+            </div>
+
+        {% elif page == "show" %}
+
+            <div class="cards">
+                <div class="card">
+                    <h2>Pizza</h2>
+                    <p>₹299</p>
+                </div>
+                <div class="card">
+                    <h2>Burger</h2>
+                    <p>₹199</p>
+                </div>
+                <div class="card">
+                    <h2>Biryani</h2>
+                    <p>₹249</p>
+                </div>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock content %}

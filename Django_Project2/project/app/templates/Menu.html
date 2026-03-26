@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> Menue </title>
+{% endblock title %}
+
+{% block css %}
+<style>
+    .menu-page {
+        padding: 60px 40px;
+        text-align: center;
+    }
+
+    .menu-page h1 {
+        font-size: 36px;
+        margin-bottom: 25px;
+    }
+
+    /* FILTER */
+    .filter {
+        margin-bottom: 30px;
+    }
+
+    .filter-btn {
+        margin: 0 10px;
+        padding: 8px 20px;
+        border: none;
+        border-radius: 20px;
+        background: #111;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+        background: #ff4d4d;
+    }
+
+    /* GRID */
+    .menu-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        justify-content: center;
+    }
+
+    /* CARD */
+    .menu-card {
+        width: 250px;
+        background: #111;
+        color: white;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        transition: 0.3s ease;
+    }
+
+    .menu-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .menu-card h3 {
+        margin: 10px 0 5px;
+    }
+
+    .menu-card p {
+        color: #ccc;
+        margin-bottom: 10px;
+    }
+
+    /* TAG */
+    .tag {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 4px 10px;
+        font-size: 12px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .veg {
+        background: green;
+    }
+
+    .nonveg {
+        background: red;
+    }
+
+    /* BUTTON */
+    .add-btn {
+        display: inline-block;
+        margin-bottom: 15px;
+        padding: 8px 15px;
+        background: #ff4d4d;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+    .add-btn:hover {
+        background: #e63e3e;
+    }
+
+    .menu-card:hover {
+        transform: translateY(-10px);
+    }
+</style>
+{% endblock css %}
+
+
+{% block content %}
+
+<section class="menu-page">
+
+    <h1>Our Menu</h1>
+
+    <!-- Filter Buttons (UI only) -->
+    <form method="GET" class="filter">
+
+        <button type="submit" name="type" value="all" class="filter-btn">
+            All
+        </button>
+
+        <button type="submit" name="type" value="veg" class="filter-btn">
+            Veg
+        </button>
+
+        <button type="submit" name="type" value="nonveg" class="filter-btn">
+            Non-Veg
+        </button>
+
+    </form>
+    <!-- Menu Items -->
+    <div class="menu-container">
+
+        <!-- Item 1 -->
+        <div class="menu-card">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="">
+            <span class="tag veg">Veg</span>
+            <h3>Farmhouse Pizza</h3>
+            <p>₹299</p>
+            <a href="#" class="add-btn">Add to Cart</a>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="menu-card">
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349" alt="">
+            <span class="tag nonveg">Non-Veg</span>
+            <h3>Chicken Burger</h3>
+            <p>₹199</p>
+            <a href="#" class="add-btn">Add to Cart</a>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="menu-card">
+            <img src="https://images.unsplash.com/photo-1604908176997-431a4b0c3c5b" alt="">
+            <span class="tag veg">Veg</span>
+            <h3>Veg Biryani</h3>
+            <p>₹249</p>
+            <a href="#" class="add-btn">Add to Cart</a>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="menu-card">
+            <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="">
+            <span class="tag nonveg">Non-Veg</span>
+            <h3>Chicken Biryani</h3>
+            <p>₹349</p>
+            <a href="#" class="add-btn">Add to Cart</a>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock content %}

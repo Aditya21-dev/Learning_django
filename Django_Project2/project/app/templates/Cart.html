@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Cart</title>{% endblock title %}
+
+{% block css %}
+<style>
+
+.cart-page {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.cart-page h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+/* CONTAINER */
+.cart-container {
+    max-width: 600px;
+    margin: auto;
+}
+
+/* CARD */
+.cart-card {
+    display: flex;
+    align-items: center;
+    background: #111;
+    color: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    gap: 15px;
+    transition: 0.3s;
+}
+
+.cart-card:hover {
+    transform: scale(1.02);
+}
+
+/* IMAGE */
+.cart-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* INFO */
+.cart-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+/* LEFT */
+.left h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.price {
+    margin-top: 5px;
+    color: #ccc;
+    font-size: 14px;
+}
+
+/* BUTTON */
+.order-btn {
+    padding: 8px 15px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.order-btn:hover {
+    background: #e63e3e;
+}
+
+/* PAY BUTTON */
+.pay-section {
+    margin-top: 30px;
+}
+
+.pay-btn {
+    padding: 12px 30px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.pay-btn:hover {
+    background: #e63e3e;
+}
+
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<section class="cart-page">
+
+    <h1>Your Cart</h1>
+
+    <div class="cart-container">
+
+        <!-- Item 1 -->
+        <div class="cart-card">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="">
+            
+            <div class="cart-info">
+                <div class="left">
+                    <h3>Farmhouse Pizza</h3>
+                    <p class="price">₹299</p>
+                </div>
+
+                <div class="right">
+                    <button class="order-btn">Order It</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="cart-card">
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349" alt="">
+            
+            <div class="cart-info">
+                <div class="left">
+                    <h3>Chicken Burger</h3>
+                    <p class="price">₹199</p>
+                </div>
+
+                <div class="right">
+                    <button class="order-btn">Order It</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="cart-card">
+            <img src="https://images.unsplash.com/photo-1604908176997-431a4b0c3c5b" alt="">
+            
+            <div class="cart-info">
+                <div class="left">
+                    <h3>Veg Biryani</h3>
+                    <p class="price">₹249</p>
+                </div>
+
+                <div class="right">
+                    <button class="order-btn">Order It</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Pay Button -->
+    <div class="pay-section">
+        <button class="pay-btn">Proceed to Pay</button>
+    </div>
+
+</section>
+
+{% endblock content %}
