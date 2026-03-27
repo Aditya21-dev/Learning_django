@@ -154,9 +154,9 @@
         <div>
             <h2>Admin Panel</h2>
             <ul>
-                <li><a href="?page=dashboard">Dashboard</a></li>
-                <li><a href="?page=add">Add Menu</a></li>
-                <li><a href="?page=show">Show All Menu</a></li>
+                <li><a href="{% url "Admin_dashboard" %}">Dashboard</a></li>
+                <li><a href="{% url "Add_dishes" %}">Add Menu</a></li>
+                <li><a href="{% url "show_dishes" %}">Show All Menu</a></li>
             </ul>
         </div>
 
@@ -168,7 +168,7 @@
     <!-- MAIN -->
     <div class="main-content">
 
-        {% if page == "dashboard" %}
+        {% if dashboard %}
 
             <div class="dashboard-header">
                 <h1>Welcome Admin</h1>
@@ -190,7 +190,7 @@
                 </div>
             </div>
 
-        {% elif page == "add" %}
+        {% elif Add_dishes %}
 
             <div class="form-container">
                 <h2>Add New Food Item</h2>
@@ -204,7 +204,7 @@
                 </form>
             </div>
 
-        {% elif page == "show" %}
+        {% elif Show_dishes %}
 
             <div class="cards">
                 <div class="card">
