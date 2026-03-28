@@ -18,8 +18,25 @@ def menu(req):
 
     return render(req, "Menu.html", {"dishes": dishes})
 
+
 def cart(req):
-    return render(req,"Cart.html")
+    cart = req.session.get('cart', [])
+
+    dishes = []
+    total_price = 0 
+    user_name = req.session.get("user_name")
+    user_address = req.session.get("user_address")
+    for id in cart:
+        try:
+            dish = Dishes.objects.get(id=id)
+            dishes.append(dish)   # jitni baar id hogi utni baar add hoga
+            total_price += dish.price
+        except:
+            pass
+    delivery = 20
+    total_amount = total_price + delivery
+
+    return render(req, "Cart.html", {"dishes": dishes , "total_price":total_price , "delivery":delivery , "total_amount":total_amount ,"user_address":user_address ,"user_name":user_name})
 
 
 
@@ -61,6 +78,7 @@ def login(req):
 
             req.session['user_id'] = user.id
             req.session['user_name'] = user.name
+            req.session['user_address'] = user.address
 
             return redirect("home")
 
@@ -77,7 +95,13 @@ def logout(req):
     return redirect("login")
 
 
+def add_to_cart(req, id):
+    cart = req.session.get('cart', [])
 
+    cart.append(id)   # id add ho gayi list mein
+
+    req.session['cart'] = cart
+    return redirect('menu')
 
 
 
