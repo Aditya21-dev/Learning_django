@@ -5,100 +5,124 @@
 {% block css %}
 <style>
 
-.cart-page {
-    padding: 60px 20px;
-    text-align: center;
+.cart-wrapper {
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+    background: #f1f3f6;
 }
 
-.cart-page h1 {
-    font-size: 36px;
-    margin-bottom: 30px;
+/* LEFT SIDE */
+.cart-left {
+    flex: 2;
 }
 
-/* CONTAINER */
-.cart-container {
-    max-width: 600px;
-    margin: auto;
+/* USER DETAILS */
+.user-box {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
-/* CARD */
+/* CART CARD */
 .cart-card {
     display: flex;
-    align-items: center;
-    background: #111;
-    color: white;
+    background: white;
     padding: 15px;
+    border-radius: 8px;
     margin-bottom: 15px;
-    border-radius: 12px;
     gap: 15px;
-    transition: 0.3s;
+    align-items: center;
 }
 
-.cart-card:hover {
-    transform: scale(1.02);
-}
-
-/* IMAGE */
 .cart-card img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 /* INFO */
 .cart-info {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
+    flex: 1;
 }
 
-/* LEFT */
-.left h3 {
+.cart-info h3 {
     margin: 0;
     font-size: 18px;
 }
 
 .price {
-    margin-top: 5px;
-    color: #ccc;
-    font-size: 14px;
+    margin: 8px 0;
+    font-weight: bold;
 }
 
-/* BUTTON */
-.order-btn {
-    padding: 8px 15px;
-    background: #ff4d4d;
+/* BUTTONS */
+.btn-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.buy-btn {
+    background: #fb641b;
     color: white;
+    padding: 8px 15px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-.order-btn:hover {
-    background: #e63e3e;
+.remove-btn {
+    background: transparent;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+/* RIGHT SIDE */
+.cart-right {
+    flex: 1;
+}
+
+/* PRICE BOX */
+.price-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.price-box h3 {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+/* ROW */
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+/* TOTAL */
+.total {
+    font-weight: bold;
+    font-size: 18px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
 }
 
 /* PAY BUTTON */
-.pay-section {
-    margin-top: 30px;
-}
-
 .pay-btn {
-    padding: 12px 30px;
-    background: #ff4d4d;
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #fb641b;
     color: white;
     border: none;
-    border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
-    transition: 0.3s;
-}
-
-.pay-btn:hover {
-    background: #e63e3e;
 }
 
 </style>
@@ -106,67 +130,76 @@
 
 {% block content %}
 
-<section class="cart-page">
+<div class="cart-wrapper">
 
-    <h1>Your Cart</h1>
+    <!-- LEFT -->
+    <div class="cart-left">
 
-    <div class="cart-container">
+        <!-- USER DETAILS (DYNAMIC) -->
+        <div class="user-box">
+            <p><strong>Deliver to:</strong> {{ user.name }}</p>
+            <p>{{ user.address }}</p>
+        </div>
 
-        <!-- Item 1 -->
+        <!-- ITEM 1 -->
         <div class="cart-card">
-            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="">
-            
-            <div class="cart-info">
-                <div class="left">
-                    <h3>Farmhouse Pizza</h3>
-                    <p class="price">₹299</p>
-                </div>
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38">
 
-                <div class="right">
-                    <button class="order-btn">Order It</button>
+            <div class="cart-info">
+                <h3>Farmhouse Pizza</h3>
+                <p class="price">₹299</p>
+
+                <div class="btn-group">
+                    <button class="buy-btn">Buy Now</button>
+                    <button class="remove-btn">Remove</button>
                 </div>
             </div>
         </div>
 
-        <!-- Item 2 -->
+        <!-- ITEM 2 -->
         <div class="cart-card">
-            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349" alt="">
-            
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
+
             <div class="cart-info">
-                <div class="left">
-                    <h3>Chicken Burger</h3>
-                    <p class="price">₹199</p>
-                </div>
+                <h3>Chicken Burger</h3>
+                <p class="price">₹199</p>
 
-                <div class="right">
-                    <button class="order-btn">Order It</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="cart-card">
-            <img src="https://images.unsplash.com/photo-1604908176997-431a4b0c3c5b" alt="">
-            
-            <div class="cart-info">
-                <div class="left">
-                    <h3>Veg Biryani</h3>
-                    <p class="price">₹249</p>
-                </div>
-
-                <div class="right">
-                    <button class="order-btn">Order It</button>
+                <div class="btn-group">
+                    <button class="buy-btn">Buy Now</button>
+                    <button class="remove-btn">Remove</button>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Pay Button -->
-    <div class="pay-section">
-        <button class="pay-btn">Proceed to Pay</button>
+    <!-- RIGHT -->
+    <div class="cart-right">
+
+        <div class="price-box">
+            <h3>PRICE DETAILS</h3>
+
+            <div class="row">
+                <span>Total Price</span>
+                <span>₹498</span>
+            </div>
+
+            <div class="row">
+                <span>Delivery Charge</span>
+                <span>₹20</span>
+            </div>
+
+            <div class="row total">
+                <span>Total Amount</span>
+                <span>₹518</span>
+            </div>
+
+            <button class="pay-btn">Pay Now</button>
+
+        </div>
+
     </div>
 
-</section>
+</div>
 
 {% endblock content %}

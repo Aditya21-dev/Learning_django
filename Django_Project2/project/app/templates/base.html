@@ -12,6 +12,7 @@
             font-family: 'Poppins', sans-serif;
         }
 
+        /* NAVBAR FIX */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -19,48 +20,91 @@
             padding: 15px 40px;
             background: #0f0f0f;
             color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
+        /* LOGO */
         .logo h2 {
             margin: 0;
             color: #ff4d4d;
-            letter-spacing: 1px;
             font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* NAV LINKS */
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
         }
 
         nav a {
-            margin: 0 20px;
             text-decoration: none;
             color: #ccc;
             font-weight: 500;
-            transition: 0.3s ease;
+            transition: 0.3s;
         }
 
         nav a:hover {
             color: #ff4d4d;
         }
 
+        /* RIGHT SECTION FIX */
+        .navbar>div:last-child {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* AUTH BUTTON FIX */
+        .auth-btn {
+            padding: 6px 14px;
+            border: 1px solid #ff4d4d;
+            border-radius: 6px;
+            color: #ff4d4d;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .auth-btn:hover {
+            background: #ff4d4d;
+            color: white;
+        }
+
+        .signup {
+            background: #ff4d4d;
+            color: white;
+        }
+
+        .signup:hover {
+            background: #e63e3e;
+        }
+
+        /* CART */
         .cart-section {
             position: relative;
         }
 
         .cart-icon {
-            font-size: 22px;
-            color: white;
+            font-size: 20px;
             text-decoration: none;
+            color: white;
             position: relative;
         }
 
-        /* Cart Badge */
+        /* CART BADGE */
         .cart-count {
             position: absolute;
-            top: -8px;
-            right: -12px;
+            top: -6px;
+            right: -10px;
             background: crimson;
             color: white;
-            font-size: 12px;
-            padding: 3px 7px;
+            font-size: 11px;
+            padding: 2px 6px;
             border-radius: 50%;
             font-weight: bold;
         }
@@ -130,7 +174,7 @@
 
     <header class="navbar">
 
-        <!-- Logo / Site Name -->
+        <!-- Logo -->
         <div class="logo">
             <h2>FoodNest</h2>
         </div>
@@ -141,16 +185,32 @@
             <a href="{% url 'menu' %}">Menu</a>
         </nav>
 
-        <!-- Cart Section -->
-        <div class="cart-section">
-            <a href="{% url 'cart' %}" class="cart-icon">
-                🛒
+        <!-- Right Section -->
+        <div style="display: flex; align-items: center; gap: 20px;">
 
-                {% if cart_count > 0 %}
-                <span class="cart-count">{{ cart_count }}</span>
-                {% endif %}
+            <!-- Auth Section -->
+            {% if request.session.user_id %}
 
-            </a>
+            <span style="color: #ccc;">Hi, {{ request.session.user_name }}</span>
+            <a href="{% url 'logout' %}" class="auth-btn">Logout</a>
+
+            {% else %}
+
+            <a href="{% url 'login' %}" class="auth-btn">Login</a>
+            <a href="{% url 'signup' %}" class="auth-btn signup">Signup</a>
+
+            {% endif %}
+
+            <!-- Cart -->
+            <div class="cart-section">
+                <a href="{% url 'cart' %}" class="cart-icon">
+                    🛒
+                    {% if cart_count > 0 %}
+                    <span class="cart-count">{{ cart_count }}</span>
+                    {% endif %}
+                </a>
+            </div>
+
         </div>
 
     </header>
