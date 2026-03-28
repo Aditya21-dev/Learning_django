@@ -120,17 +120,17 @@
     <h1>Our Menu</h1>
 
     <!-- Filter Buttons (UI only) -->
-    <form method="GET" class="filter">
+   <form method="GET" class="filter">
 
         <button type="submit" name="type" value="all" class="filter-btn">
             All
         </button>
 
-        <button type="submit" name="type" value="veg" class="filter-btn">
+        <button type="submit" name="type" value="Veg" class="filter-btn">
             Veg
         </button>
 
-        <button type="submit" name="type" value="nonveg" class="filter-btn">
+        <button type="submit" name="type" value="Non-veg" class="filter-btn">
             Non-Veg
         </button>
 
@@ -138,44 +138,17 @@
     <!-- Menu Items -->
     <div class="menu-container">
 
-        <!-- Item 1 -->
-        <div class="menu-card">
-            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="">
-            <span class="tag veg">Veg</span>
-            <h3>Farmhouse Pizza</h3>
-            <p>₹299</p>
-            <a href="#" class="add-btn">Add to Cart</a>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="menu-card">
-            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349" alt="">
-            <span class="tag nonveg">Non-Veg</span>
-            <h3>Chicken Burger</h3>
-            <p>₹199</p>
-            <a href="#" class="add-btn">Add to Cart</a>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="menu-card">
-            <img src="https://images.unsplash.com/photo-1604908176997-431a4b0c3c5b" alt="">
-            <span class="tag veg">Veg</span>
-            <h3>Veg Biryani</h3>
-            <p>₹249</p>
-            <a href="#" class="add-btn">Add to Cart</a>
-        </div>
-
-        <!-- Item 4 -->
-        <div class="menu-card">
-            <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="">
-            <span class="tag nonveg">Non-Veg</span>
-            <h3>Chicken Biryani</h3>
-            <p>₹349</p>
-            <a href="#" class="add-btn">Add to Cart</a>
-        </div>
-
+    {% for dish in dishes %}
+    <div class="menu-card">
+        <img src="{{ dish.image.url }}" alt="">
+        <span class="tag {{ dish.type }}">{{ dish.type }}</span>
+        <h3>{{ dish.name }}</h3>
+        <p>₹{{ dish.price }}</p>
+        <a href="{% url "cart" %}" class="add-btn">Add to Cart</a>
     </div>
+    {% endfor %}
 
+</div>
 </section>
 
 {% endblock content %}
