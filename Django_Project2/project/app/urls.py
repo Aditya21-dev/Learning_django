@@ -14,6 +14,9 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('add_to_cart/<int:id>/', views.add_to_cart, name='add_to_cart'),
+    # payment 
+    path("payment/", views.payment, name="payment"),
+    path("payment-status", views.payment_status, name="payment-status"),
 
 
 

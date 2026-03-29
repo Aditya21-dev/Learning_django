@@ -1,44 +1,10 @@
 from django.shortcuts import render,redirect
-from .models import User , Dishes
+from .models import User , Dishes ,Payment
 from django.contrib import messages
+import razorpay
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
-
-def home(req):
-    return render(req,"Home.html")
-
-def menu(req):
-    type_filter = req.GET.get("type")
-
-    if type_filter == "Veg":
-        dishes = Dishes.objects.filter(type="Veg")
-    elif type_filter == "Non-veg":
-        dishes = Dishes.objects.filter(type="Non-Veg")
-    else:
-        dishes = Dishes.objects.all()
-
-    return render(req, "Menu.html", {"dishes": dishes})
-
-
-def cart(req):
-    cart = req.session.get('cart', [])
-
-    dishes = []
-    total_price = 0 
-    user_name = req.session.get("user_name")
-    user_address = req.session.get("user_address")
-    for id in cart:
-        try:
-            dish = Dishes.objects.get(id=id)
-            dishes.append(dish)   # jitni baar id hogi utni baar add hoga
-            total_price += dish.price
-        except:
-            pass
-    delivery = 20
-    total_amount = total_price + delivery
-
-    return render(req, "Cart.html", {"dishes": dishes , "total_price":total_price , "delivery":delivery , "total_amount":total_amount ,"user_address":user_address ,"user_name":user_name})
-
-
 
 def signup(req):
     if req.method == "POST":
@@ -61,7 +27,6 @@ def signup(req):
         return redirect("login")
 
     return render(req, "signup.html")
-
 
 
 def login(req):
@@ -89,35 +54,127 @@ def login(req):
     return render(req, "login.html")
 
 
-
 def logout(req):
     req.session.flush()
     return redirect("login")
 
 
+def home(req):
+    return render(req,"Home.html")
+
+
+def menu(req):
+    type_filter = req.GET.get("type")
+
+    if type_filter == "Veg":
+        dishes = Dishes.objects.filter(type="Veg")
+    elif type_filter == "Non-veg":
+        dishes = Dishes.objects.filter(type="Non-Veg")
+    else:
+        dishes = Dishes.objects.all()
+
+    return render(req, "Menu.html", {"dishes": dishes})
+
+
+
 def add_to_cart(req, id):
     cart = req.session.get('cart', [])
 
-    cart.append(id)   # id add ho gayi list mein
+    cart.append(id)   
 
     req.session['cart'] = cart
     return redirect('menu')
 
 
 
+def cart(req):
+    cart = req.session.get('cart', [])
+
+    dishes = []
+    total_price = 0 
+    user_name = req.session.get("user_name")
+    user_address = req.session.get("user_address")
+    for id in cart:
+        try:
+            dish = Dishes.objects.get(id=id)
+            dishes.append(dish)  
+            total_price += dish.price
+        except:
+            pass
+    delivery = 20
+    total_amount = total_price + delivery
+
+    return render(req, "Cart.html", {"dishes": dishes , "total_price":total_price , "delivery":delivery , "total_amount":total_amount ,"user_address":user_address ,"user_name":user_name , "payment": None})
 
 
 
 
+def payment(req):
+    if req.method == "POST":
+        amount = int(req.POST.get("amount")) * 100
+
+        client = razorpay.Client(auth=("rzp_test_pr99iascS1WRtU", "UTDIzPGwICnAssu3Q3lk7zUi"))
+
+        data = {"amount": amount, "currency": "INR", "receipt": "order_rcptid_11"}
+        payment = client.order.create(data=data)
+
+        Payment.objects.create(
+            amount=amount,
+            order_id=payment['id']
+        )
+
+        cart = req.session.get('cart', [])
+        dishes = []
+        total_price = 0
+        user_name = req.session.get("user_name")
+        user_address = req.session.get("user_address")
+
+        for id in cart:
+            dish = Dishes.objects.get(id=id)
+            dishes.append(dish)
+            total_price += dish.price
+
+        delivery = 20
+        total_amount = total_price + delivery
+
+        return render(req, "Cart.html", {
+            "dishes": dishes,
+            "total_price": total_price,
+            "delivery": delivery,
+            "total_amount": total_amount,
+            "user_name": user_name,
+            "user_address": user_address,
+            "payment": payment  
+        })
 
 
 
+@csrf_exempt
+def payment_status(req):
+    if req.method == "POST":
+        response = req.POST
 
+        client = razorpay.Client(auth=("rzp_test_pr99iascS1WRtU", "UTDIzPGwICnAssu3Q3lk7zUi"))
 
+        try:
+            client.utility.verify_payment_signature({
+                'razorpay_order_id': response['razorpay_order_id'],
+                'razorpay_payment_id': response['razorpay_payment_id'],
+                'razorpay_signature': response['razorpay_signature']
+            })
 
+            payment = Payment.objects.get(order_id=response['razorpay_order_id'])
+            payment.razorpay_payment_id = response['razorpay_payment_id']
+            payment.paid = True
+            payment.save()
 
+            req.session['cart'] = []
 
+            return render(req, "Cart.html", {"status": True})
 
+        except Exception as e:
+            print("Payment Error:", e)
+            return render(req, "Cart.html", {"status": False})
 
 
 

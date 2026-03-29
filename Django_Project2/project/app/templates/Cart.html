@@ -182,7 +182,65 @@
                 <span>{{total_amount}}</span>
             </div>
 
-            <button class="pay-btn">Pay Now</button>
+            <form action="{% url 'payment' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="amount" value="{{ total_amount }}">
+                <button class="pay-btn">Pay Now</button>
+            </form>
+
+            {% if payment %}
+            <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+            <script>
+                var options = {
+                    "key": "rzp_test_pr99iascS1WRtU",
+                    "amount": "{{ payment.amount }}",
+                    "currency": "INR",
+                    "order_id": "{{ payment.id }}",
+
+                    "name": "Food Order",
+                    "description": "Order Payment",
+
+                    "handler": function (response) {
+
+                        var form = document.createElement("form");
+                        form.method = "POST";
+                        form.action = "/payment-status";
+
+                        var fields = {
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_signature: response.razorpay_signature
+                        };
+
+                        for (var key in fields) {
+                            var input = document.createElement("input");
+                            input.type = "hidden";
+                            input.name = key;
+                            input.value = fields[key];
+                            form.appendChild(input);
+                        }
+
+                         // 🔥 CSRF ADD KARO
+                        var csrf = document.createElement("input");
+                        csrf.type = "hidden";
+                        csrf.name = "csrfmiddlewaretoken";
+                        csrf.value = "{{ csrf_token }}";
+                        form.appendChild(csrf);
+
+                        document.body.appendChild(form);
+                        form.submit();
+                    },
+
+                    "theme": {
+                        "color": "#fb641b"
+                    }
+                };
+
+                var rzp = new Razorpay(options);
+                rzp.open();
+            </script>
+            {% endif %}
 
         </div>
 
