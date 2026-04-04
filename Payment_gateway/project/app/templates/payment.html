@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Page</title>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+<h2>Payment Page</h2>
+
+{% for product in products %}
+    <p>{{ product.name }} - ₹{{ product.price }}</p>
+{% endfor %}
+
+<h3>Total: ₹{{ total }}</h3>
+
+{% comment %} Button jo order banayega  {% endcomment %}
+<form method="POST" action="{% url 'razerpay' %}">
+    {% csrf_token %}
+    <button type="submit">Create Order</button>
+</form>
+
+{% comment %} Agar order ban gaya toh payment button dikhao  {% endcomment %}
+{% if order %}
+    <button id="pay-btn">Pay Now</button>
+{% endif %}
+
+<script>
+
+{% if order %}
+
+var options = {
+    "key": "rzp_test_pr99iascS1WRtU",
+    "amount": "{{ order.amount }}",
+    "currency": "INR",
+    "name": "Adi Store",
+    "order_id": "{{ order.id }}",
+
+    "handler": function (response){
+        alert("Payment Successful 🎉");
+        console.log(response);
+    }
+};
+
+var rzp1 = new Razorpay(options);
+
+document.getElementById('pay-btn').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+};
+
+{% endif %}
+
+</script>
+
+</body>
+</html>
