@@ -22,7 +22,7 @@ def registration(request):
         email = request.POST.get("email")
         contact = request.POST.get("contact")
         password = request.POST.get("password")
-        check_email = KFC_User.objects.filter(email=email)
+        check_email = KFC_User.objects.filter(email=email).first()
         
         if check_email:
             messages.error(request, "Email already registered. Please login.")
@@ -49,7 +49,7 @@ def login(request):
             request.session["user_password"] = user.password
             messages.success(request, "Welcome back")
             return redirect("home")
-            re
+            
         except KFC_User.DoesNotExist:
             return render(request, "login.html")
 

@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+<title>Home Page </title>
+{% endblock title %}
+
+{% block css %}
+<style>
+    /* Hero Section */
+   .hero {
+    height: 80vh;
+    background-image: url('/static/images/hero_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+    .hero-content h1 {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background: white;
+        color: #f97316;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    /* Popular Dishes */
+    .dishes {
+        padding: 70px 10%;
+        text-align: center;
+    }
+
+    .dishes h2 {
+        margin-bottom: 40px;
+    }
+
+    .dish-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .dish-card {
+        width: 250px;
+        padding: 25px;
+        background: #f8f8f8;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Features */
+    .features {
+        background: #f1f5f9;
+        padding: 70px 10%;
+        text-align: center;
+    }
+
+    .features h2 {
+        margin-bottom: 40px;
+    }
+
+    .feature-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .feature-card {
+        width: 250px;
+        padding: 25px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Mobile */
+    @media(max-width:768px) {
+
+        .hero-content h1 {
+            font-size: 2rem;
+        }
+
+        .dish-card,
+        .feature-card {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock css %}
+
+
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Delicious Food Delivered To Your Door</h1>
+        <p>Fresh, tasty and affordable meals delivered in minutes.</p>
+        <a href="#" class="btn">Order Now</a>
+    </div>
+</section>
+
+<!-- Popular Dishes -->
+<section class="dishes">
+    <h2>Popular Dishes</h2>
+
+    <div class="dish-container">
+        <div class="dish-card">
+            <h3>Pizza</h3>
+            <p>Cheesy and freshly baked.</p>
+        </div>
+
+        <div class="dish-card">
+            <h3>Burger</h3>
+            <p>Juicy burgers with crispy fries.</p>
+        </div>
+
+        <div class="dish-card">
+            <h3>Pasta</h3>
+            <p>Italian style creamy pasta.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="features">
+    <h2>Why Choose Us?</h2>
+
+    <div class="feature-container">
+        <div class="feature-card">
+            <h3>Fast Delivery</h3>
+            <p>Get your food delivered quickly.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Fresh Ingredients</h3>
+            <p>Only the freshest ingredients used.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Best Prices</h3>
+            <p>Quality food at affordable prices.</p>
+        </div>
+    </div>
+</section>
+{% endblock content %}
