@@ -1,0 +1,16 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block content %}
+    <a href="{% url 'landing' %}">Back</a>
+    <br>
+    <br>
+        Name = {{name}}
+        <br>
+        <br>
+        Email = {{email}}
+        <br>
+        <br>
+        Password = {{pass}}
+        
+{% endblock content %}

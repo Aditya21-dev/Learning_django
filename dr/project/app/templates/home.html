@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Home {% endblock title %} 
+
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+
+
+<h2>Doctor Appointment</h2>
+
+<form action="{% url "save_appointment" %}" method="POST">
+  {% csrf_token %}
+
+  Name:
+  <input type="text" name="name" required> 
+  <br><br>
+
+  Email:
+  <input type="email" name="email" required>
+  <br><br>
+
+  Phone:
+  <input type="text" name="phone" required>
+  <br><br>
+
+  Gender:
+  <input type="radio" name="gender" value="Male" > Male
+  <input type="radio" name="gender" value="Female" > Female
+  <br><br>
+
+  Type of Doctor:
+<select name="doctor_type" required>
+  <option>General Physician</option>
+  <option>Cardiologist</option>
+  <option>Neurologist</option>
+  <option>Orthopedic</option>
+</select>
+<br><br>
+
+  Select Doctor:
+  <select name="doctor" required>
+    <option>Dr. Sharma</option>
+    <option>Dr. Khan</option>
+    <option>Dr. Verma</option>
+  </select>
+  <br><br>
+
+  Appointment Date:
+  <input type="date" name="date" required>
+  <br><br>
+
+  Problem:
+  <br>
+  <textarea name="problem" required ></textarea>
+  <br><br>
+
+  <input type="submit" value="Book Appointment">
+
+</form>
+
+{% endblock content %}

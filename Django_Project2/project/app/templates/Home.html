@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Home</title>{% endblock title %}
+
+{% block css %}
+<style>
+    .hero {
+        height: 90vh;
+        background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836') no-repeat center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+    }
+
+    .hero-content {
+        background: rgba(0, 0, 0, 0.6);
+        padding: 40px;
+        border-radius: 10px;
+        max-width: 600px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        margin-bottom: 20px;
+        color: #ddd;
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        background: #ff4d4d;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background: #e63e3e;
+    }
+
+    .popular {
+        padding: 60px 40px;
+        text-align: center;
+    }
+
+    .popular h2 {
+        margin-bottom: 30px;
+        font-size: 32px;
+    }
+
+    .cards {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        width: 250px;
+        background: #111;
+        color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: 0.3s ease;
+    }
+
+    .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .card h3 {
+        margin: 10px 0 5px;
+    }
+
+    .card p {
+        color: #bbb;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+    }
+
+    .features {
+        display: flex;
+        justify-content: space-around;
+        padding: 60px 20px;
+        background: #0f0f0f;
+        color: white;
+        text-align: center;
+        flex-wrap: wrap;
+    }
+
+    .feature-box {
+        max-width: 250px;
+        margin: 10px;
+    }
+
+    .feature-box h3 {
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+    .feature-box p {
+        color: #ccc;
+        font-size: 14px;
+    }
+</style>
+
+{% endblock css %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Delicious Food, Delivered Fast</h1>
+        <p>Fresh meals from your favorite restaurants at your doorstep.</p>
+        <a href="#" class="btn">Explore Menu</a>
+    </div>
+</section>
+
+<section class="popular">
+    <h2>Popular Dishes</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="">
+            <h3>Pizza</h3>
+            <p>Hot & cheesy delight</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349" alt="">
+            <h3>Burger</h3>
+            <p>Juicy & loaded</p>
+        </div>
+
+        <div class="card">
+            <img src="https://feeds.abplive.com/onecms/images/uploaded-images/2023/10/11/fa6be68d80b1f9676ece11173a8b6ded1697004727372557_original.jpg"
+                alt="">
+            <h3>Biryani</h3>
+            <p>Rich & flavorful</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="features">
+
+    <div class="feature-box">
+        <h3>⚡ Fast Delivery</h3>
+        <p>Get your food in under 30 minutes.</p>
+    </div>
+
+    <div class="feature-box">
+        <h3>🍴 Quality Food</h3>
+        <p>Only the best restaurants and chefs.</p>
+    </div>
+
+    <div class="feature-box">
+        <h3>💳 Easy Payment</h3>
+        <p>Multiple secure payment options.</p>
+    </div>
+
+</section>
+{% endblock content %}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block title %}
+    <title>Document</title>
+    {% endblock title %}
+
+    {% block css %}
+
+    {% endblock css %}
+
+    <style>
+        /* NAV-BAR */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            background: #1e293b;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+        }
+        /* Footer */
+            .footer {
+                background: #1e293b;
+                color: white;
+                margin-top: 50px;
+            }
+
+            .footer-container {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 30px;
+                padding: 40px 8%;
+            }
+
+            .footer-section {
+                flex: 1;
+                min-width: 250px;
+            }
+
+            .footer-section h3,
+            .footer-section h4 {
+                margin-bottom: 15px;
+            }
+
+            .footer-section p {
+                line-height: 1.8;
+                color: #cbd5e1;
+            }
+
+            .footer-section ul {
+                list-style: none;
+            }
+
+            .footer-section ul li {
+                margin-bottom: 10px;
+            }
+
+            .footer-section ul li a {
+                text-decoration: none;
+                color: #cbd5e1;
+                transition: 0.3s;
+            }
+
+            .footer-section ul li a:hover {
+                color: #38bdf8;
+            }
+
+            .footer-bottom {
+                text-align: center;
+                padding: 15px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                color: #cbd5e1;
+            }
+
+            @media(max-width:768px) {
+
+                .footer-container {
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+            }
+    </style>
+
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/">MyProject</a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/services/">Services</a></li>
+            <li><a href="/contact/">Contact</a></li>
+
+            {% if user.is_authenticated %}
+            <li><a href="/profile/">Profile</a></li>
+            <li><a href="/logout/">Logout</a></li>
+            {% else %}
+            <li><a href="/login/">Login</a></li>
+            <li><a href="/register/">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-section">
+                <h3>YourLogo</h3>
+                <p>Building amazing web experiences with Django.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: info@example.com</p>
+                <p>Phone: +91 12345 67890</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 YourLogo. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

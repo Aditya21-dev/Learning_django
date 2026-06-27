@@ -1,0 +1,351 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+
+
+{% block css %}
+<style>
+    :root {
+        --bg-dark: #0f0f11;
+        --sidebar-bg: #111113;
+        --card-bg: #1a1a1f;
+        --text-light: #e0e0e5;
+        --text-muted: #9ca3af;
+        --primary: #6366f1;
+        --primary-hover: #4f46e5;
+        --border: #27272a;
+        --radius: 10px;
+        --navbar-height: 80px;
+        /* match your navbar */
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background: var(--bg-dark);
+        color: var(--text-light);
+        min-height: 100vh;
+    }
+
+    /* ========== LAYOUT ========== */
+
+    .layout {
+        display: flex;
+    }
+
+    /* ===== Sidebar ===== */
+
+    .sidebar {
+        width: 240px;
+        background: var(--sidebar-bg);
+        border-right: 1px solid var(--border);
+        position: fixed;
+        top: var(--navbar-height);
+        left: 0;
+        bottom: 0;
+        padding: 20px 0;
+        overflow-y: auto;
+    }
+
+    .sidebar ul {
+        list-style: none;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: 14px 24px;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.2s ease;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+        background: rgba(99, 102, 241, 0.15);
+        color: #fff;
+    }
+
+    .logout {
+        margin-top: 40px;
+        padding: 0 24px;
+    }
+
+    /* ===== Main Content ===== */
+
+    .main-content {
+        margin-left: 240px;
+        /* SAME as sidebar width */
+        margin-top: var(--navbar-height);
+        padding: 40px;
+        width: calc(100% - 240px);
+    }
+
+    /* ========== Headings ========== */
+
+    .welcome {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        background: linear-gradient(90deg, #a78bfa, #6366f1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* ========== Cards ========== */
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        padding: 1.8rem;
+        border-radius: var(--radius);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: 0.2s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+    }
+
+    .card-label {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+    }
+
+    .card-value {
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+
+    /* ========== TODO SECTION ========== */
+
+    .add-task-form {
+        max-width: 700px;
+        margin-bottom: 2rem;
+    }
+
+    .input-group {
+        display: flex;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+    }
+
+    .task-input {
+        flex: 1;
+        padding: 14px 16px;
+        background: transparent;
+        border: none;
+        color: var(--text-light);
+        font-size: 1rem;
+        outline: none;
+    }
+
+    .task-input::placeholder {
+        color: #6b7280;
+    }
+
+    .btn-add-task {
+        padding: 14px 28px;
+        background: var(--primary);
+        border: none;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .btn-add-task:hover {
+        background: var(--primary-hover);
+    }
+
+    /* ===== Todo Items ===== */
+
+    .todo-list {
+        max-width: 800px;
+    }
+
+    .todo-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        padding: 1rem 1.3rem;
+        border-radius: var(--radius);
+        margin-bottom: 1rem;
+        transition: 0.2s ease;
+    }
+
+    .todo-item:hover {
+        background: #1e1e24;
+    }
+
+    .task-checkbox {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--primary);
+    }
+
+    .task-text {
+        flex: 1;
+        font-size: 1rem;
+    }
+
+    .task-text.completed {
+        text-decoration: line-through;
+        color: var(--text-muted);
+    }
+
+    .todo-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        padding: 6px 14px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .btn-edit {
+        background: #3b82f6;
+        color: white;
+    }
+
+    .btn-delete {
+        background: #ef4444;
+        color: white;
+    }
+
+    /* ========== Responsive ========== */
+
+    @media (max-width: 768px) {
+
+        .sidebar {
+            position: relative;
+            width: 100%;
+            top: 0;
+            border-right: none;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .main-content {
+            margin-left: 0;
+            margin-top: var(--navbar-height);
+            padding: 25px;
+        }
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<div class="layout">
+
+    <!-- Left Fixed Sidebar -->
+    <aside class="sidebar">
+        <ul>
+            <li><a href="{% url "dashboard" %}" class="active">Dashboard</a></li>
+            <li><a href="{% url "todo_list" %}">Todo List</a></li>
+        </ul>
+
+        <div class="logout">
+            <a href="{% url "logout" %}">Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+    {% if dashboard_content %}
+        <!-- Dashboard Content -->
+        <h1 class="welcome">Welcome, {{ user_detail.user_name }}!</h1>
+
+        <div class="cards">
+            <div class="card">
+                <div class="card-value">{{ user_detail.user_name }}</div>
+            </div>
+
+            <div class="card">
+                <div class="card-label">Your Email</div>
+                <div class="card-value">{{ user_detail.user_email }}</div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if todo_list %}
+    <!-- Add Task Form -->
+    <form action="{% url 'add_task' %}" method="post">
+        {% csrf_token %}
+        <div style="display:flex; gap:12px; max-width:700px; margin-bottom:40px;">
+            <input type="text" name="task" placeholder="Enter new task..." required class="task-input">
+            <button type="submit" class="btn-add-task">Add Task</button>
+        </div>
+    </form>
+    <form action="{% url 'add_task' %}" method="post">
+        {% csrf_token %}
+        <div style="display:flex; gap:12px; max-width:700px; margin-bottom:40px;">
+            <input type="text" name="task" placeholder="Enter new task..." required class="task-input">
+            <button type="submit" class="btn-add-task">Search Task</button>
+        </div>
+    </form>
+
+    <!-- Task List -->
+    <div class="todo-list">
+    {% for task_details in task_detail %}
+        <div class="todo-item">
+
+            {% if edit_task_obj and edit_task_obj.id == task_details.id %}
+
+                <!-- Editable Mode -->
+                <form action="{% url 'update_task' task_details.id %}" method="post" style="display:flex; gap:10px; width:100%;">
+                    {% csrf_token %}
+                    <input type="text" name="task" value="{{ task_details.task }}" class="task-input">
+                    <button type="submit" class="btn-edit">Update</button>
+                </form>
+
+            {% else %}
+
+                <!-- Normal Mode -->
+                <span class="task-text">{{ task_details.task }}</span>
+
+                <div class="todo-actions">
+                    <a href="{% url 'edit_task' task_details.id %}">
+                        <button type="button" class="btn-edit">Edit</button>
+                    </a>
+
+                    <form action="{% url 'delete_task' task_details.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-delete">Delete</button>
+                    </form>
+                </div>
+
+            {% endif %}
+
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+</main>
+
+
+</div>
+
+{% endblock content %}

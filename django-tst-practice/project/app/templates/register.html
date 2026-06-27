@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Register {% endblock title %}
+
+{% block css %}
+<style>
+    /* Page Background */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    }
+
+    /* Main Page Heading */
+    h1 {
+        text-align: center;
+        margin-top: 30px;
+        color: #ffffff;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    /* Decorative Line */
+    hr {
+        margin: 10px auto 30px auto;
+        height: 4px;
+        width: 120px;
+        border: none;
+        background: #00c3c3;
+        border-radius: 10px;
+    }
+
+    /* Center Container */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+    }
+
+    /* Card Design */
+    .card {
+        background: #ffffff;
+        border-radius: 15px;
+        padding: 30px;
+        width: 500px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    /* Card Heading */
+    .card h2 {
+        text-align: center;
+        color: #203a43;
+        margin-bottom: 20px;
+    }
+
+    /* Labels */
+    label {
+        font-weight: 500;
+        color: #333;
+        margin-top: 10px;
+        display: block;
+    }
+
+    /* Form Fields */
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="file"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        transition: 0.3s ease;
+    }
+
+    /* Focus Effect */
+    input:focus,
+    textarea:focus,
+    select:focus {
+        border-color: #00c3c3;
+        outline: none;
+        box-shadow: 0 0 6px rgba(0, 195, 195, 0.4);
+    }
+
+    /* Error Messages */
+    div[style*="color:red"] {
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    /* Submit Button */
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #00c3c3;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    button:hover {
+        background: #008b8b;
+        transform: translateY(-2px);
+    }
+
+    /* Smooth Entry Animation */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+{% endblock css %}
+
+
+{% block content %}
+<h1> Regisster page </1h1>
+    <hr style="height: 21px;width: 10px; color: rgba(0, 195, 195, 0.614);">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow p-4 w-50">
+            <h2 class="text-center mb-4">Student Form</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Name -->
+                <label>Name:</label>
+                {{ form.name }}
+                <div style="color:red;"> {{ form.name.errors }} </div>
+
+                <!-- Age -->
+                <label>Age:</label>
+                {{ form.age }}
+                <div style="color:red;"> {{ form.age.errors }} </div>
+
+                <!-- Email -->
+                <label>Email:</label>
+                {{ form.email }}
+                <div style="color:red;"> {{ form.email.errors }} </div>
+
+                <!-- Phone -->
+                <label>Phone:</label>
+                {{ form.phone }}
+                <div style="color:red;"> {{ form.phone.errors }} </div>
+
+                <!-- password -->
+                <label>Password:</label>
+                {{ form.password }}
+                <div style="color:red;"> {{ form.password.errors }} </div>
+                <br>
+                <!-- Resume -->
+                <label>Resume:</label>
+                {{ form.resume }}
+                <div style="color:red;"> {{ form.resume.errors }} </div>
+                <br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    {% endblock content %}
