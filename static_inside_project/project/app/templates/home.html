@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+
+            background-image: url("{% static 'images/python.jpeg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #c4cfff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>IN THIS THE STATIC FILE IS OUT SIDE APP <br>
+        BUT INSIDE PROJECT</h1>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    # normal value retriv
+    <br>
+    {{name}}
+    {{age}}
+    {{city}}
+    {{is_strudent}}
+
+    <br>
+    <br>
+
+    # applying conditions
+    <br>
+    {% if age <= 19 %}
+        if condition bock run 19
+    {% elif age == 20 %}
+        mai elif ka 20 hun 
+    {% else %}
+        runs else block 
+    {% endif %}
+
+
+    # applying loops 
+    <br>
+    {% for i in fruits %}
+        {{ forloop.counter }} - {{ i }}
+    {% endfor %}
+
+
+
+
+    {% for fruit in fruits %}
+
+        {{ forloop.counter }}
+
+    {% endfor %}
+    
+</body>
+</html>

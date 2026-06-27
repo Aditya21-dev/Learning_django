@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+            Documnet
+        {% endblock title %}
+    </title>
+
+    {% block css %}
+
+    {% endblock css %}
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            font-family:Arial, sans-serif;
+        }
+
+        /* Navbar */
+        nav{
+            background:#222;
+            padding:15px 30px;
+        }
+
+        nav ul{
+            list-style:none;
+            display:flex;
+            gap:20px;
+        }
+
+        nav ul li a{
+            color:white;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        nav ul li a:hover{
+            color:#00bcd4;
+        }
+
+        /* Main Content */
+        main{
+            flex:1;
+            padding:30px;
+        }
+
+        /* Footer */
+        footer{
+            background:#222;
+            color:white;
+            text-align:center;
+            padding:15px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/services/">Services</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        
+        {% endblock content %}
+    </main>
+
+
+    <footer>
+        <p>&copy; 2026 My Website. All Rights Reserved.</p>
+    </footer>
+
+    {% block js %}
+    
+    {% endblock js %}
+
+</body>
+</html>
